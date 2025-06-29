@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C.R.A.T.E.R</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#1e293b',
+                        accent: '#f97316',
+                        dark: '#0f172a'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        
+        .section {
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .image-container {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        
+        .image-container::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+        
+        .image-slide {
+            scroll-snap-align: start;
+        }
+        
+        .progress-bar {
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link {
+            position: relative;
+            padding-bottom: 4px;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        @media (max-width: 768px) {
+            .section {
+                flex-direction: column;
+            }
+            .text-container, .image-container {
+                width: 100% !important;
+                height: 50% !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-dark">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-dark/90 backdrop-blur-sm shadow-lg py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-white"><span class="gradient-text">C.R.A.T.E.R</span></div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#section1" class="nav-link text-gray-300 hover:text-white font-medium">AI Detection</a>
+                <a href="#section2" class="nav-link text-gray-300 hover:text-white font-medium">Data Analysis</a>
+                <a href="#section3" class="nav-link text-gray-300 hover:text-white font-medium">Repairs</a>
+                <a href="#section4" class="nav-link text-gray-300 hover:text-white font-medium">Implementation</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="h-screen flex flex-col justify-center items-center text-center px-4 relative overflow-hidden">
+        <!-- Animated background elements -->
+        <div class="absolute top-0 left-0 w-full h-full z-0">
+            <div class="absolute top-20 left-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-40 right-20 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-300"></div>
+            <div class="absolute top-1/3 right-1/4 w-24 h-24 bg-cyan-500/10 rounded-full blur-3xl animate-pulse delay-700"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-4xl">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                <span class="gradient-text">C.R.A.T.E.R</span>
+            </h1>
+            <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+                Cognative Roadway Anomaly Tracking and Evaluation Robot
+            </p>
+            <div class="flex justify-center space-x-5">
+                <a href="#section1" class="bg-primary hover:bg-blue-500 text-white px-8 py-3.5 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 flex items-center">
+                    <i class="fas fa-magnifying-glass mr-3"></i> Explore Project
+                </a>
+                <a href="/model" class="border-2 border-primary text-primary hover:bg-blue-500/10 px-8 py-3.5 rounded-lg font-medium transition-all duration-300 flex items-center">
+                    <i class="fas fa-code mr-3"></i> View Model
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 animate-bounce z-10">
+            <i class="fas fa-chevron-down text-blue-400 text-3xl"></i>
+        </div>
+    </div>
+
+    <!-- Section 1 -->
+    <section id="section1" class="section flex relative">
+        <!-- Progress bar -->
+        <div class="absolute top-0 left-0 right-0 h-1.5 bg-gray-700 z-40">
+            <div class="progress-bar h-full bg-gradient-to-r from-blue-500 to-indigo-500" id="progress1"></div>
+        </div>
+        
+        <!-- Text container (fixed) -->
+        <div class="text-container w-1/2 h-full flex items-center justify-center p-12 bg-gradient-to-r from-dark to-slate-900">
+            <div class="max-w-md">
+                <div class="flex items-center mb-6">
+                    <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center mr-4">
+                        <span class="text-white font-bold">01</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-white">AI Detection</h2>
+                </div>
+                <p class="text-gray-300 mb-8 text-lg leading-relaxed">
+                    With our custom trained AI, track the location of potholes with a simple system which can be mounted on any car. Our AI searches for potholes with a camera system and sends the location with GPS coordinates to a server when a pothole is detected.
+                </p>
+                <div class="grid grid-cols-2 gap-4 mb-8">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-blue-500/50 flex items-center justify-center mr-3">
+                            <i class="fas fa-light fa-money-check-dollar"></i>
+                        </div>
+                        <div>
+                            <div class="text-blue-400 font-bold">$26 Billion</div>
+                            <div class="text-gray-400 text-sm">Damages from Potholes</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-blue-500/50 flex items-center justify-center mr-3">
+                            <i class="fas fa-light fa-road"></i>
+                        </div>
+                        <div>
+                            <div class="text-blue-400 font-bold">13+</div>
+                            <div class="text-gray-400 text-sm">Potholes/Mile in the U.S.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        
+        <!-- Image container (scrolling) -->
+        <div class="image-container w-1/2 h-full overflow-y-auto" id="imageContainer1">
+            <div class="image-slide h-full">
+                <div class="w-full h-full bg-cover bg-center" style="background-image: url('./img/pothole_website-1-detect.png')"></div>
+            </div>
+            <div class="image-slide h-full">
+                <div class="w-full h-full bg-cover bg-center" style="background-image: url('./img/pothole_website-2-detect.png')"></div>
+            </div>
+            <div class="image-slide h-full">
+                <div class="w-full h-full bg-cover bg-center" style="background-image: url('./img/pothole_website-3-detect.png')"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2 -->
+    <section id="section2" class="section flex relative">
+        <div class="absolute top-0 left-0 right-0 h-1.5 bg-gray-700 z-40">
+            <div class="progress-bar w-full h-full bg-gradient-to-r from-cyan-500 to-blue-500" id="progress2"></div>
+        </div>
+        
+        <!-- Image container (scrolling) -->
+        <div class="image-container w-1/2 h-full overflow-y-auto" id="imageContainer2">
+            <div class="image-slide h-full">
+                <iframe class="w-full h-full" src="pothole_repair_routes.html"></iframe>
+            </div>
+        </div>
+        
+        <!-- Text container (fixed) -->
+        <div class="text-container w-1/2 h-full flex items-center justify-center p-12 bg-gradient-to-l from-dark to-slate-900">
+            <div class="max-w-md">
+                <div class="flex items-center mb-6">
+                    <div class="w-10 h-10 rounded-full bg-cyan-500 flex items-center justify-center mr-4">
+                        <span class="text-white font-bold">02</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-white">Interactive Map</h2>
+                </div>
+                <p class="text-gray-300 mb-8 text-lg leading-relaxed">
+                    Created with data from our detection system, our interactive map provides city managers and planners with the latest information regarding the location of road damages and potholes.
+                </p>
+                
+                <div class="grid grid-cols-2 gap-4 mb-8">
+                    <div class="bg-cyan-900/30 p-4 rounded-xl border border-cyan-700/30">
+                        <div class="w-10 h-10 rounded-full bg-cyan-700/50 flex items-center justify-center mb-3">
+                            <i class="fas fa-map-location-dot text-cyan-300"></i>
+                        </div>
+                        <h3 class="font-bold text-white text-lg mb-1">Automatic Routing</h3>
+                        <p class="text-cyan-300 text-sm">The most efficient pothole repair routes are automatically determined with the greedy algorithm</p>
+                    </div>
+                    <div class="bg-cyan-900/30 p-4 rounded-xl border border-cyan-700/30">
+                        <div class="w-10 h-10 rounded-full bg-cyan-700/50 flex items-center justify-center mb-3">
+                            <i class="fas fa-database text-cyan-300"></i>
+                        </div>
+                        <h3 class="font-bold text-white text-lg mb-1">Heatmaps</h3>
+                        <p class="text-cyan-300 text-sm">Recieve information on where potholes are the most dense and rank their urgency/severity</p>
+                    </div>
+                </div>
+                
+                <div class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white py-3.5 rounded-xl font-medium transition-all duration-300 transform hover:scale-[1.02] text-center">
+                    <a href="./merge.html">
+                        View Work Orders, Estimated Repair Times, and More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3 -->
+    <section id="section3" class="section flex relative">
+        <div class="absolute top-0 left-0 right-0 h-1.5 bg-gray-700 z-40">
+            <div class="progress-bar h-full bg-gradient-to-r from-amber-500 to-orange-500" id="progress3"></div>
+        </div>
+        
+        <!-- Text container (fixed) -->
+        <div class="text-container w-1/2 h-full flex items-center justify-center p-12 bg-gradient-to-r from-dark to-slate-900">
+            <div class="max-w-md">
+                <div class="flex items-center mb-6">
+                    <div class="w-10 h-10 rounded-full bg-amber-500 flex items-center justify-center mr-4">
+                        <span class="text-white font-bold">03</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-white">Pothole Repair</h2>
+                </div>
+                <p class="text-gray-300 mb-8 text-lg leading-relaxed">
+                    Cheaply, quickly, and efficiently patch potholes with our automatic repair system. Reduces backlogging of potholes and allows for a more efficient repair system. With our system's help, cities can shift their attention to other construction projects.
+                </p>
+                <div class="bg-amber-900/30 p-4 rounded-xl border-l-4 border-amber-500 mb-8">
+                    <p class="text-amber-200">
+                        <i class="fas fa-info-circle mr-2"></i> There is currently a backlog of roadway repair work in the United States, making automomous solutions nessecary.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Image container (scrolling) -->
+        <div class="image-container w-1/2 h-full overflow-y-auto" id="imageContainer3">
+            <div class="image-slide h-full">
+                <div class="w-full h-full bg-cover bg-center" style="background-image: url('./img/crater-prototype-1.png')"></div>
+            </div>
+            <div class="image-slide h-full">
+                <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1542272201-b1ca555ef850?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80')"></div>
+            </div>
+            <div class="image-slide h-full">
+                <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1505118380757-91f5f5632de0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80')"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4 -->
+    <section id="section4" class="section flex relative">
+        <div class="absolute top-0 left-0 right-0 h-1.5 bg-gray-700 z-40">
+            <div class="progress-bar h-full bg-gradient-to-r from-emerald-500 to-green-500" id="progress4"></div>
+        </div>
+        
+        <!-- Image container (scrolling) -->
+        <div class="image-container w-1/2 h-full overflow-y-auto" id="imageContainer4">
+            <div class="image-slide h-full">
+                <div class="w-full h-full bg-cover bg-center" style="background-image: url('./img/repair-irl-1.png')"></div>
+            </div>
+            <div class="image-slide h-full">
+                <div class="w-full h-full bg-cover bg-center" style="background-image: url('./img/repair-irl-2.png')"></div>
+            </div>
+            <div class="image-slide h-full">
+                <div class="w-full h-full bg-cover bg-center" style="background-image: url('./img/repair-irl-3.png')"></div>
+            </div>
+        </div>
+        
+        <!-- Text container (fixed) -->
+        <div class="text-container w-1/2 h-full flex items-center justify-center p-12 bg-gradient-to-l from-dark to-slate-900">
+            <div class="max-w-md">
+                <div class="flex items-center mb-6">
+                    <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center mr-4">
+                        <span class="text-white font-bold">04</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-white">From Design To Real Life</h2>
+                </div>
+                <p class="text-gray-300 mb-8 text-lg leading-relaxed">
+                    We have designed a simple and inexpensive system which can be mounted on self-driving trucks in order to repair these potholes. It consists of a container to hold cold-mix asphalt, a dispensing system, and a roller which smooths over the patched pothole.
+                </p>
+                <div class="grid grid-cols-2 gap-4 mb-8">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-emerald-900/50 flex items-center justify-center mr-3">
+                            <i class="fas fa-money-check-dollar text-emerald-400"></i>
+                        </div>
+                        <div>
+                            <div class="text-emerald-400 font-bold">$5000</div>
+                            <div class="text-gray-500 text-sm">Cost Per Unit</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-emerald-900/50 flex items-center justify-center mr-3">
+                            <i class="fas fa-dollar-sign text-emerald-400"></i>
+                        </div>
+                        <div>
+                            <div class="text-emerald-400 font-bold">$1,000,000</div>
+                            <div class="text-gray-500 text-sm">Saved Per Year</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-16 border-t border-slate-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <h3 class="text-3xl font-bold mb-6"><span class="gradient-text">C.R.A.T.E.R</span></h3>
+                <p class="text-gray-400 max-w-2xl mx-auto mb-10 text-lg">
+                    Paving the path towards a better future.
+                </p>
+                <div class="flex justify-center space-x-6 mb-10">
+                    <a href="https://github.com/william11074/CRATER" class="text-gray-400 hover:text-white transition duration-300" target="_blank" rel="noopener">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                </div>
+                <p class="text-gray-600 text-sm">
+                    &copy; 2025 CRATER. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Progress bars for image scrolling
+        function setupProgress(containerId, progressId) {
+            const container = document.getElementById(containerId);
+            const progress = document.getElementById(progressId);
+            
+            container.addEventListener('scroll', () => {
+                const scrollHeight = container.scrollHeight - container.clientHeight;
+                const scrolled = container.scrollTop;
+                const progressPercent = (scrolled / scrollHeight) * 100;
+                progress.style.width = `${progressPercent}%`;
+            });
+        }
+        
+        // Handle seamless scrolling between sections
+        function setupSectionScrolling() {
+            const containers = [
+                'imageContainer1',
+                'imageContainer2',
+                'imageContainer3',
+                'imageContainer4'
+            ];
+            
+            const sections = [
+                'section1',
+                'section2',
+                'section3',
+                'section4'
+            ];
+            
+            containers.forEach((containerId, index) => {
+                const container = document.getElementById(containerId);
+                let isScrolling = false;
+                
+                // Handle wheel events for scrolling
+                container.addEventListener('wheel', (e) => {
+                    if (isScrolling) return;
+                    
+                    // Check if we're at the bottom and scrolling down
+                    const atBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 10;
+                    const scrollingDown = e.deltaY > 0;
+                    
+                    // Check if we're at the top and scrolling up
+                    const atTop = container.scrollTop <= 10;
+                    const scrollingUp = e.deltaY < 0;
+                    
+                    if (atBottom && scrollingDown) {
+                        // Scroll to next section if available
+                        if (index < sections.length - 1) {
+                            e.preventDefault();
+                            isScrolling = true;
+                            document.getElementById(sections[index + 1]).scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                            
+                            // Reset flag after delay
+                            setTimeout(() => {
+                                isScrolling = false;
+                            }, 1000);
+                        }
+                    } else if (atTop && scrollingUp) {
+                        // Scroll to previous section if available
+                        if (index > 0) {
+                            e.preventDefault();
+                            isScrolling = true;
+                            document.getElementById(sections[index - 1]).scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                            
+                            // Reset flag after delay
+                            setTimeout(() => {
+                                isScrolling = false;
+                            }, 1000);
+                        }
+                    }
+                });
+                
+                // Handle touch events for mobile
+                let touchStartY = 0;
+                
+                container.addEventListener('touchstart', (e) => {
+                    touchStartY = e.touches[0].clientY;
+                });
+                
+                container.addEventListener('touchmove', (e) => {
+                    if (isScrolling) {
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    const touchY = e.touches[0].clientY;
+                    const deltaY = touchStartY - touchY; // positive if scrolling down
+                    
+                    // Check scroll position
+                    const atBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 10;
+                    const scrollingDown = deltaY > 0;
+                    
+                    const atTop = container.scrollTop <= 10;
+                    const scrollingUp = deltaY < 0;
+                    
+                    if (atBottom && scrollingDown) {
+                        // Scroll to next section if available
+                        if (index < sections.length - 1) {
+                            e.preventDefault();
+                            isScrolling = true;
+                            document.getElementById(sections[index + 1]).scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                            
+                            // Reset flag after delay
+                            setTimeout(() => {
+                                isScrolling = false;
+                            }, 1000);
+                        }
+                    } else if (atTop && scrollingUp) {
+                        // Scroll to previous section if available
+                        if (index > 0) {
+                            e.preventDefault();
+                            isScrolling = true;
+                            document.getElementById(sections[index - 1]).scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                            
+                            // Reset flag after delay
+                            setTimeout(() => {
+                                isScrolling = false;
+                            }, 1000);
+                        }
+                    }
+                });
+            });
+        }
+        
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            setupProgress('imageContainer1', 'progress1');
+            setupProgress('imageContainer2', 'progress2');
+            setupProgress('imageContainer3', 'progress3');
+            setupProgress('imageContainer4', 'progress4');
+            
+            setupSectionScrolling();
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
