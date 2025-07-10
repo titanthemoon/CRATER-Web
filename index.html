@@ -95,6 +95,7 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* FIXED MOBILE STYLES */
         @media (max-width: 768px) {
             .section {
                 flex-direction: column !important;
@@ -102,18 +103,21 @@
                 min-height: 100vh;
             }
 
-            .text-container,
-            .image-container {
+            .text-container {
                 width: 100% !important;
                 height: auto !important;
+                min-height: 50vh;
+            }
+
+            .image-container {
+                width: 100% !important;
+                height: 50vh !important;
+                /* Fixed height for mobile */
             }
 
             .image-slide {
-                height: auto !important;
-            }
-
-            .image-container {
-                max-height: 50vh;
+                height: 100% !important;
+                /* Ensure slides fill container */
             }
 
             nav .container {
@@ -125,12 +129,43 @@
 
             nav .container .text-2xl {
                 font-size: 1.25rem;
-                /* reduce brand text size */
             }
 
             nav .container>.md\\:flex {
                 display: none !important;
-                /* hide large screen nav links */
+            }
+
+            /* Mobile navigation menu */
+            .mobile-nav {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: rgba(15, 23, 42, 0.95);
+                backdrop-filter: blur(10px);
+                z-index: 100;
+                padding: 10px;
+                justify-content: space-around;
+                border-top: 1px solid rgba(59, 130, 246, 0.3);
+            }
+
+            .mobile-nav-btn {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                color: #94a3b8;
+                font-size: 0.75rem;
+                transition: all 0.3s ease;
+            }
+
+            .mobile-nav-btn i {
+                font-size: 1.25rem;
+                margin-bottom: 4px;
+            }
+
+            .mobile-nav-btn.active {
+                color: #3b82f6;
             }
         }
     </style>
@@ -168,9 +203,9 @@
                 <span class="gradient-text">C.R.A.T.E.R</span>
             </h1>
             <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-                Cognative Roadway Anomaly Tracking and Evaluation Robot
+                Cognitive Roadway Anomaly Tracking and Evaluation Robot
             </p>
-            <div class="flex justify-center space-x-5">
+            <div class="flex flex-wrap justify-center gap-5">
                 <a href="#section1"
                     class="bg-primary hover:bg-blue-500 text-white px-8 py-3.5 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 flex items-center">
                     <i class="fas fa-magnifying-glass mr-3"></i> Explore Project
@@ -231,21 +266,23 @@
                 </div>
             </div>
         </div>
-        </div>
 
         <!-- Image container (scrolling) -->
         <div class="image-container w-1/2 h-full overflow-y-auto" id="imageContainer1">
             <div class="image-slide h-full">
-                <div class="w-full h-full bg-cover bg-center"
-                    style="background-image: url('./img/pothole_website-1-detect.png')"></div>
+                <div class="w-full h-full bg-cover bg-center bg-gray-800"
+                    style="background-image: url('./img/pothole_website-1-detect.png')">
+                </div>
             </div>
             <div class="image-slide h-full">
-                <div class="w-full h-full bg-cover bg-center"
-                    style="background-image: url('./img/pothole_website-2-detect.png')"></div>
+                <div class="w-full h-full bg-cover bg-center bg-gray-800"
+                    style="background-image: url('./img/pothole_website-2-detect.png')">
+                </div>
             </div>
             <div class="image-slide h-full">
-                <div class="w-full h-full bg-cover bg-center"
-                    style="background-image: url('./img/pothole_website-3-detect.png')"></div>
+                <div class="w-full h-full bg-cover bg-center bg-gray-800"
+                    style="background-image: url('./img/pothole_website-3-detect.png')">
+                </div>
             </div>
         </div>
     </section>
@@ -341,7 +378,8 @@
         <div class="image-container w-1/2 h-full overflow-y-auto" id="imageContainer3">
             <div class="image-slide h-full">
                 <div class="w-full h-full bg-cover bg-center"
-                    style="background-image: url('./img/crater-prototype-1.png')"></div>
+                    style="background-image: url('./img/crater-prototype-1.png')">
+                </div>
             </div>
             <div class="image-slide h-full">
                 <div class="w-full h-full bg-cover bg-center" style="background-image: url('./img/crater-map-1.png')">
@@ -349,7 +387,8 @@
             </div>
             <div class="image-slide h-full">
                 <div class="w-full h-full bg-cover bg-center"
-                    style="background-image: url('./img/crater-prototype-3.png')"></div>
+                    style="background-image: url('./img/crater-prototype-3.png')">
+                </div>
             </div>
         </div>
     </section>
@@ -435,6 +474,26 @@
             </div>
         </div>
     </footer>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav md:hidden">
+        <a href="#section1" class="mobile-nav-btn">
+            <i class="fas fa-search"></i>
+            <span>Detection</span>
+        </a>
+        <a href="#section2" class="mobile-nav-btn">
+            <i class="fas fa-map"></i>
+            <span>Analysis</span>
+        </a>
+        <a href="#section3" class="mobile-nav-btn">
+            <i class="fas fa-tools"></i>
+            <span>Repairs</span>
+        </a>
+        <a href="#section4" class="mobile-nav-btn">
+            <i class="fas fa-cogs"></i>
+            <span>Implementation</span>
+        </a>
+    </div>
 
     <script>
         // Progress bars for image scrolling
@@ -585,8 +644,19 @@
                     document.querySelector(this.getAttribute('href')).scrollIntoView({
                         behavior: 'smooth'
                     });
+
+                    // Highlight active mobile nav item
+                    if (window.innerWidth < 768) {
+                        document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+                            btn.classList.remove('active');
+                        });
+                        this.classList.add('active');
+                    }
                 });
             });
+
+            // Set default active mobile nav item
+            document.querySelector('.mobile-nav-btn').classList.add('active');
         });
     </script>
 </body>
