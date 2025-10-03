@@ -1,2093 +1,2129 @@
+<!DOCTYPE html>
+<html lang="en">
 
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Pothole Repair Work Orders</title>
-            <style>
-                body { 
-                    font-family: Arial, sans-serif; 
-                    line-height: 1.6; 
-                    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-                    color: #e2e8f0;
-                    max-width: 1200px; 
-                    margin: 0 auto; 
-                    padding: 20px; 
-                }
-                header { 
-                    text-align: center; 
-                    margin-bottom: 30px; 
-                    border-bottom: 2px solid #eee; 
-                    padding-bottom: 20px; 
-                }
-                h1 { 
-                    color: #e2e8f0; 
-                }
-                table { 
-                    width: 100%; 
-                    margin-top: 10px;
-                }
-                th { 
-                    background: #2c3e50; 
-                    color: white; 
-                    text-align: left; 
-                    padding: 12px;
-                }
-                tr:nth-child(even) { 
-                    background: #273141; 
-                }
-                td { 
-                    padding: 10px 12px; 
-                    border-bottom: 1px solid #273141; 
-                }
-                a {
-                    color: #e2e8f0;
-                }
-                .route-card { 
-                    background: #1e293b; 
-                    border-radius: 8px; 
-                    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
-                    margin-bottom: 25px; 
-                    overflow: hidden; 
-                }
-                .route-header { 
-                    background: linear-gradient(90deg, #1d4ed8 0%, #7e22ce 100%);
-                    color: white; 
-                    padding: 15px 20px; 
-                    display: flex; 
-                    justify-content: space-between; 
-                    align-items: center; 
-                }
-                .route-stats { 
-                    display: grid; 
-                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-                    gap: 15px; 
-                    padding: 20px; 
-                    background: #1e293b; 
-                }
-                .stat-box { 
-                    background: #0f172a; 
-                    padding: 12px; 
-                    border-radius: 6px; 
-                    box-shadow: 0 1px 3px rgba(0,0,0,0.1); 
-                }
-                .stat-box h3 { 
-                    margin-top: 0; 
-                    color: #e2e8f0; 
-                }
-                .pothole-list { 
-                    padding: 20px; 
-                }
-                .order-col { 
-                    width: 50px; 
-                    text-align: center; 
-                }
-                .footer { 
-                    text-align: center; 
-                    margin-top: 30px; 
-                    padding-top: 20px; 
-                    border-top: 1px solid #eee; 
-                    color: #7f8c8d; 
-                    font-size: 0.9em; 
-                }
-                .pothole-row:hover {
-                    background-color: #334155;
-                    cursor: pointer;
-                }
-                .highlighted {
-                    animation: highlight 2s ease;
-                    background-color: rgba(255, 215, 0, 0.3);
-                }
-                @keyframes highlight {
-                    0% { background-color: rgba(255, 215, 0, 0.8); }
-                    100% { background-color: rgba(255, 215, 0, 0.3); }
-                }
-                @media print {
-                    .route-card { box-shadow: none; page-break-inside: avoid; }
-                    .route-header { background: #3498db !important; -webkit-print-color-adjust: exact; }
-                    th { background: #2c3e50 !important; -webkit-print-color-adjust: exact; }
-                }
-            </style>
-            <script>
-                // Function to highlight a pothole row
-                function highlightPothole(anchorId) {
-                    // Remove any existing highlights
-                    const highlighted = document.querySelectorAll('.highlighted');
-                    for (let i = 0; i < highlighted.length; i++) {
-                        highlighted[i].classList.remove('highlighted');
-                    }
-                    
-                    // Find and highlight the target row
-                    const targetRow = document.getElementById(anchorId);
-                    if (targetRow) {
-                        targetRow.classList.add('highlighted');
-                        targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        
-                        // Remove highlight after animation
-                        setTimeout(function() {
-                            targetRow.classList.remove('highlighted');
-                        }, 2000);
-                    }
-                }
-                
-                // Check for anchor on page load
-                window.addEventListener('load', function() {
-                    if (window.location.hash) {
-                        const anchorId = window.location.hash.substring(1);
-                        highlightPothole(anchorId);
-                    }
-                });
-            </script>
-        </head>
-        <body>
-            <header>
-                <h1>Pothole Repair Work Orders</h1>
-                <p>Generated on 2025-07-18 21:47</p>
-            </header>
-        <h2>Crew 1 Assignments</h2>
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 0</h2>
-                        <div>Crew: Crew 1</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 18</p>
-                            <p><strong>Total Distance:</strong> 2.44 km</p>
-                            <p><strong>Estimated Time:</strong> 275 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-0-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-0-0')">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pothole Repair Work Orders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            color: #e2e8f0;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        th {
+            background: #2c3e50;
+            color: white;
+            text-align: left;
+            padding: 12px;
+        }
+
+        tr:nth-child(even) {
+            background: #273141;
+        }
+
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #273141;
+        }
+
+        a {
+            color: #e2e8f0;
+        }
+
+        .route-card {
+            background: #1e293b;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .route-header {
+            background: linear-gradient(90deg, #1d4ed8 0%, #7e22ce 100%);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .route-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            background: #1e293b;
+        }
+
+        .stat-box {
+            background: #0f172a;
+            padding: 12px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-box h3 {
+            margin-top: 0;
+            color: #e2e8f0;
+        }
+
+        .pothole-list {
+            padding: 20px;
+        }
+
+        .order-col {
+            width: 50px;
+            text-align: center;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .pothole-row:hover {
+            background-color: #334155;
+            cursor: pointer;
+        }
+
+        .highlighted {
+            animation: highlight 2s ease;
+            background-color: rgba(255, 215, 0, 0.3);
+        }
+
+        @keyframes highlight {
+            0% {
+                background-color: rgba(255, 215, 0, 0.8);
+            }
+
+            100% {
+                background-color: rgba(255, 215, 0, 0.3);
+            }
+        }
+
+        @media print {
+            .route-card {
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+
+            .route-header {
+                background: #3498db !important;
+                -webkit-print-color-adjust: exact;
+            }
+
+            th {
+                background: #2c3e50 !important;
+                -webkit-print-color-adjust: exact;
+            }
+        }
+    </style>
+    <script>
+        // Function to highlight a pothole row
+        function highlightPothole(anchorId) {
+            // Remove any existing highlights
+            const highlighted = document.querySelectorAll('.highlighted');
+            for (let i = 0; i < highlighted.length; i++) {
+                highlighted[i].classList.remove('highlighted');
+            }
+
+            // Find and highlight the target row
+            const targetRow = document.getElementById(anchorId);
+            if (targetRow) {
+                targetRow.classList.add('highlighted');
+                targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                // Remove highlight after animation
+                setTimeout(function () {
+                    targetRow.classList.remove('highlighted');
+                }, 2000);
+            }
+        }
+
+        // Check for anchor on page load
+        window.addEventListener('load', function () {
+            if (window.location.hash) {
+                const anchorId = window.location.hash.substring(1);
+                highlightPothole(anchorId);
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>Pothole Repair Work Orders</h1>
+        <p>Generated on 2025-07-18 21:47</p>
+    </header>
+    <h2>Crew 1 Assignments</h2>
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 0</h2>
+            <div>Crew: Crew 1</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 18</p>
+                <p><strong>Total Distance:</strong> 2.44 km</p>
+                <p><strong>Estimated Time:</strong> 275 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-0-0" class="pothole-row" onclick="highlightPothole('pothole-0-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.027120908796775&lon=-118.26624306438312&zoom=15">34.027121, -118.266243</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.027120908796775&lon=-118.26624306438312&zoom=15">34.027121,
+                                -118.266243</a></td>
                         <td>high</td>
                         <td>2023-11-12</td>
                     </tr>
-                    
-                    <tr id="pothole-0-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-0-1')">
+
+                    <tr id="pothole-0-1" class="pothole-row" onclick="highlightPothole('pothole-0-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.028895152002335&lon=-118.26622304387088&zoom=15">34.028895, -118.266223</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.028895152002335&lon=-118.26622304387088&zoom=15">34.028895,
+                                -118.266223</a></td>
                         <td>low</td>
                         <td>2023-11-08</td>
                     </tr>
-                    
-                    <tr id="pothole-0-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-0-2')">
+
+                    <tr id="pothole-0-2" class="pothole-row" onclick="highlightPothole('pothole-0-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.0293604120426&lon=-118.26680703770612&zoom=15">34.029360, -118.266807</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.0293604120426&lon=-118.26680703770612&zoom=15">34.029360,
+                                -118.266807</a></td>
                         <td>low</td>
                         <td>2023-11-23</td>
                     </tr>
-                    
-                    <tr id="pothole-0-3" class="pothole-row" 
-                        onclick="highlightPothole('pothole-0-3')">
+
+                    <tr id="pothole-0-3" class="pothole-row" onclick="highlightPothole('pothole-0-3')">
                         <td class="order-col">4</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.02996013679342&lon=-118.26582153943968&zoom=15">34.029960, -118.265822</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.02996013679342&lon=-118.26582153943968&zoom=15">34.029960,
+                                -118.265822</a></td>
                         <td>low</td>
                         <td>2023-12-03</td>
                     </tr>
-                    
-                    <tr id="pothole-0-4" class="pothole-row" 
-                        onclick="highlightPothole('pothole-0-4')">
+
+                    <tr id="pothole-0-4" class="pothole-row" onclick="highlightPothole('pothole-0-4')">
                         <td class="order-col">5</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.03038684153824&lon=-118.26735097911042&zoom=15">34.030387, -118.267351</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.03038684153824&lon=-118.26735097911042&zoom=15">34.030387,
+                                -118.267351</a></td>
                         <td>low</td>
                         <td>2023-12-05</td>
                     </tr>
-                    
-                    <tr id="pothole-0-5" class="pothole-row" 
-                        onclick="highlightPothole('pothole-0-5')">
+
+                    <tr id="pothole-0-5" class="pothole-row" onclick="highlightPothole('pothole-0-5')">
                         <td class="order-col">6</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.02826576918631&lon=-118.26818671778072&zoom=15">34.028266, -118.268187</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.02826576918631&lon=-118.26818671778072&zoom=15">34.028266,
+                                -118.268187</a></td>
                         <td>low</td>
                         <td>2023-06-02</td>
                     </tr>
-                    
-                    <tr id="pothole-0-6" class="pothole-row" 
-                        onclick="highlightPothole('pothole-0-6')">
+
+                    <tr id="pothole-0-6" class="pothole-row" onclick="highlightPothole('pothole-0-6')">
                         <td class="order-col">7</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.027347494261946&lon=-118.26950333847284&zoom=15">34.027347, -118.269503</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.027347494261946&lon=-118.26950333847284&zoom=15">34.027347,
+                                -118.269503</a></td>
                         <td>low</td>
                         <td>2023-11-11</td>
                     </tr>
-                    
-                    <tr id="pothole-0-7" class="pothole-row" 
-                        onclick="highlightPothole('pothole-0-7')">
+
+                    <tr id="pothole-0-7" class="pothole-row" onclick="highlightPothole('pothole-0-7')">
                         <td class="order-col">8</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.02723175347327&lon=-118.26975739186028&zoom=15">34.027232, -118.269757</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.02723175347327&lon=-118.26975739186028&zoom=15">34.027232,
+                                -118.269757</a></td>
                         <td>medium</td>
                         <td>2023-11-01</td>
                     </tr>
-                    
-                    <tr id="pothole-0-8" class="pothole-row" 
-                        onclick="highlightPothole('pothole-0-8')">
+
+                    <tr id="pothole-0-8" class="pothole-row" onclick="highlightPothole('pothole-0-8')">
                         <td class="order-col">9</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.02650137246004&lon=-118.27119474023432&zoom=15">34.026501, -118.271195</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.02650137246004&lon=-118.27119474023432&zoom=15">34.026501,
+                                -118.271195</a></td>
                         <td>low</td>
                         <td>2023-11-05</td>
                     </tr>
-                    
-                    <tr id="pothole-0-9" class="pothole-row" 
-                        onclick="highlightPothole('pothole-0-9')">
+
+                    <tr id="pothole-0-9" class="pothole-row" onclick="highlightPothole('pothole-0-9')">
                         <td class="order-col">10</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.02603563583869&lon=-118.27243562691882&zoom=15">34.026036, -118.272436</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.02603563583869&lon=-118.27243562691882&zoom=15">34.026036,
+                                -118.272436</a></td>
                         <td>low</td>
                         <td>2023-10-29</td>
                     </tr>
-                    
-                    <tr id="pothole-0-10" class="pothole-row" 
-                        onclick="highlightPothole('pothole-0-10')">
+
+                    <tr id="pothole-0-10" class="pothole-row" onclick="highlightPothole('pothole-0-10')">
                         <td class="order-col">11</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.02621824627358&lon=-118.273259180539&zoom=15">34.026218, -118.273259</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.02621824627358&lon=-118.273259180539&zoom=15">34.026218,
+                                -118.273259</a></td>
                         <td>low</td>
                         <td>2023-11-27</td>
                     </tr>
-                    
-                    <tr id="pothole-0-11" class="pothole-row" 
-                        onclick="highlightPothole('pothole-0-11')">
+
+                    <tr id="pothole-0-11" class="pothole-row" onclick="highlightPothole('pothole-0-11')">
                         <td class="order-col">12</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.02676713557879&lon=-118.27430206682642&zoom=15">34.026767, -118.274302</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.02676713557879&lon=-118.27430206682642&zoom=15">34.026767,
+                                -118.274302</a></td>
                         <td>low</td>
                         <td>2023-11-29</td>
                     </tr>
-                    
-                    <tr id="pothole-0-12" class="pothole-row" 
-                        onclick="highlightPothole('pothole-0-12')">
+
+                    <tr id="pothole-0-12" class="pothole-row" onclick="highlightPothole('pothole-0-12')">
                         <td class="order-col">13</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.02734871190814&lon=-118.2732532128456&zoom=15">34.027349, -118.273253</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.02734871190814&lon=-118.2732532128456&zoom=15">34.027349,
+                                -118.273253</a></td>
                         <td>low</td>
                         <td>2023-10-28</td>
                     </tr>
-                    
-                    <tr id="pothole-0-13" class="pothole-row" 
-                        onclick="highlightPothole('pothole-0-13')">
+
+                    <tr id="pothole-0-13" class="pothole-row" onclick="highlightPothole('pothole-0-13')">
                         <td class="order-col">14</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.024823788387906&lon=-118.2743199538484&zoom=15">34.024824, -118.274320</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.024823788387906&lon=-118.2743199538484&zoom=15">34.024824,
+                                -118.274320</a></td>
                         <td>medium</td>
                         <td>2023-10-31</td>
                     </tr>
-                    
-                    <tr id="pothole-0-14" class="pothole-row" 
-                        onclick="highlightPothole('pothole-0-14')">
+
+                    <tr id="pothole-0-14" class="pothole-row" onclick="highlightPothole('pothole-0-14')">
                         <td class="order-col">15</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.024010610537054&lon=-118.27415475058206&zoom=15">34.024011, -118.274155</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.024010610537054&lon=-118.27415475058206&zoom=15">34.024011,
+                                -118.274155</a></td>
                         <td>low</td>
                         <td>2023-11-02</td>
                     </tr>
-                    
-                    <tr id="pothole-0-15" class="pothole-row" 
-                        onclick="highlightPothole('pothole-0-15')">
+
+                    <tr id="pothole-0-15" class="pothole-row" onclick="highlightPothole('pothole-0-15')">
                         <td class="order-col">16</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.02308600134518&lon=-118.27301992593358&zoom=15">34.023086, -118.273020</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.02308600134518&lon=-118.27301992593358&zoom=15">34.023086,
+                                -118.273020</a></td>
                         <td>low</td>
                         <td>2023-12-12</td>
                     </tr>
-                    
-                    <tr id="pothole-0-16" class="pothole-row" 
-                        onclick="highlightPothole('pothole-0-16')">
+
+                    <tr id="pothole-0-16" class="pothole-row" onclick="highlightPothole('pothole-0-16')">
                         <td class="order-col">17</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.02242404468901&lon=-118.27331311879472&zoom=15">34.022424, -118.273313</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.02242404468901&lon=-118.27331311879472&zoom=15">34.022424,
+                                -118.273313</a></td>
                         <td>low</td>
                         <td>2023-11-15</td>
                     </tr>
-                    
-                    <tr id="pothole-0-17" class="pothole-row" 
-                        onclick="highlightPothole('pothole-0-17')">
+
+                    <tr id="pothole-0-17" class="pothole-row" onclick="highlightPothole('pothole-0-17')">
                         <td class="order-col">18</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.02459225998193&lon=-118.27192277772114&zoom=15">34.024592, -118.271923</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.02459225998193&lon=-118.27192277772114&zoom=15">34.024592,
+                                -118.271923</a></td>
                         <td>medium</td>
                         <td>2023-11-30</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 3</h2>
-                        <div>Crew: Crew 1</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 18</p>
-                            <p><strong>Total Distance:</strong> 2.42 km</p>
-                            <p><strong>Estimated Time:</strong> 275 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-3-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-3-0')">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 3</h2>
+            <div>Crew: Crew 1</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 18</p>
+                <p><strong>Total Distance:</strong> 2.42 km</p>
+                <p><strong>Estimated Time:</strong> 275 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-3-0" class="pothole-row" onclick="highlightPothole('pothole-3-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.01307967803472&lon=-118.16986954474896&zoom=15">34.013080, -118.169870</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.01307967803472&lon=-118.16986954474896&zoom=15">34.013080,
+                                -118.169870</a></td>
                         <td>low</td>
                         <td>2024-03-15</td>
                     </tr>
-                    
-                    <tr id="pothole-3-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-3-1')">
+
+                    <tr id="pothole-3-1" class="pothole-row" onclick="highlightPothole('pothole-3-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.01360836032021&lon=-118.16902077372453&zoom=15">34.013608, -118.169021</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.01360836032021&lon=-118.16902077372453&zoom=15">34.013608,
+                                -118.169021</a></td>
                         <td>low</td>
                         <td>2024-03-02</td>
                     </tr>
-                    
-                    <tr id="pothole-3-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-3-2')">
+
+                    <tr id="pothole-3-2" class="pothole-row" onclick="highlightPothole('pothole-3-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.01356499215086&lon=-118.16763701258792&zoom=15">34.013565, -118.167637</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.01356499215086&lon=-118.16763701258792&zoom=15">34.013565,
+                                -118.167637</a></td>
                         <td>medium</td>
                         <td>2024-03-07</td>
                     </tr>
-                    
-                    <tr id="pothole-3-3" class="pothole-row" 
-                        onclick="highlightPothole('pothole-3-3')">
+
+                    <tr id="pothole-3-3" class="pothole-row" onclick="highlightPothole('pothole-3-3')">
                         <td class="order-col">4</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.01296550628984&lon=-118.16741170489766&zoom=15">34.012966, -118.167412</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.01296550628984&lon=-118.16741170489766&zoom=15">34.012966,
+                                -118.167412</a></td>
                         <td>medium</td>
                         <td>2024-03-16</td>
                     </tr>
-                    
-                    <tr id="pothole-3-4" class="pothole-row" 
-                        onclick="highlightPothole('pothole-3-4')">
+
+                    <tr id="pothole-3-4" class="pothole-row" onclick="highlightPothole('pothole-3-4')">
                         <td class="order-col">5</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.011630665111205&lon=-118.1690661661776&zoom=15">34.011631, -118.169066</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.011630665111205&lon=-118.1690661661776&zoom=15">34.011631,
+                                -118.169066</a></td>
                         <td>low</td>
                         <td>2024-03-18</td>
                     </tr>
-                    
-                    <tr id="pothole-3-5" class="pothole-row" 
-                        onclick="highlightPothole('pothole-3-5')">
+
+                    <tr id="pothole-3-5" class="pothole-row" onclick="highlightPothole('pothole-3-5')">
                         <td class="order-col">6</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.01021964484774&lon=-118.16880111086932&zoom=15">34.010220, -118.168801</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.01021964484774&lon=-118.16880111086932&zoom=15">34.010220,
+                                -118.168801</a></td>
                         <td>high</td>
                         <td>2023-08-13</td>
                     </tr>
-                    
-                    <tr id="pothole-3-6" class="pothole-row" 
-                        onclick="highlightPothole('pothole-3-6')">
+
+                    <tr id="pothole-3-6" class="pothole-row" onclick="highlightPothole('pothole-3-6')">
                         <td class="order-col">7</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.008798373009206&lon=-118.16871985132843&zoom=15">34.008798, -118.168720</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.008798373009206&lon=-118.16871985132843&zoom=15">34.008798,
+                                -118.168720</a></td>
                         <td>medium</td>
                         <td>2024-03-08</td>
                     </tr>
-                    
-                    <tr id="pothole-3-7" class="pothole-row" 
-                        onclick="highlightPothole('pothole-3-7')">
+
+                    <tr id="pothole-3-7" class="pothole-row" onclick="highlightPothole('pothole-3-7')">
                         <td class="order-col">8</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.008725113912895&lon=-118.16942886175669&zoom=15">34.008725, -118.169429</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.008725113912895&lon=-118.16942886175669&zoom=15">34.008725,
+                                -118.169429</a></td>
                         <td>high</td>
                         <td>2024-02-17</td>
                     </tr>
-                    
-                    <tr id="pothole-3-8" class="pothole-row" 
-                        onclick="highlightPothole('pothole-3-8')">
+
+                    <tr id="pothole-3-8" class="pothole-row" onclick="highlightPothole('pothole-3-8')">
                         <td class="order-col">9</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.0071316899656&lon=-118.168944912664&zoom=15">34.007132, -118.168945</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.0071316899656&lon=-118.168944912664&zoom=15">34.007132,
+                                -118.168945</a></td>
                         <td>low</td>
                         <td>2024-02-11</td>
                     </tr>
-                    
-                    <tr id="pothole-3-9" class="pothole-row" 
-                        onclick="highlightPothole('pothole-3-9')">
+
+                    <tr id="pothole-3-9" class="pothole-row" onclick="highlightPothole('pothole-3-9')">
                         <td class="order-col">10</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.00728287614433&lon=-118.16800431942823&zoom=15">34.007283, -118.168004</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.00728287614433&lon=-118.16800431942823&zoom=15">34.007283,
+                                -118.168004</a></td>
                         <td>medium</td>
                         <td>2024-02-14</td>
                     </tr>
-                    
-                    <tr id="pothole-3-10" class="pothole-row" 
-                        onclick="highlightPothole('pothole-3-10')">
+
+                    <tr id="pothole-3-10" class="pothole-row" onclick="highlightPothole('pothole-3-10')">
                         <td class="order-col">11</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.0073773986686&lon=-118.16795873622144&zoom=15">34.007377, -118.167959</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.0073773986686&lon=-118.16795873622144&zoom=15">34.007377,
+                                -118.167959</a></td>
                         <td>medium</td>
                         <td>2024-03-04</td>
                     </tr>
-                    
-                    <tr id="pothole-3-11" class="pothole-row" 
-                        onclick="highlightPothole('pothole-3-11')">
+
+                    <tr id="pothole-3-11" class="pothole-row" onclick="highlightPothole('pothole-3-11')">
                         <td class="order-col">12</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.00814279567002&lon=-118.16628367952988&zoom=15">34.008143, -118.166284</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.00814279567002&lon=-118.16628367952988&zoom=15">34.008143,
+                                -118.166284</a></td>
                         <td>high</td>
                         <td>2024-02-24</td>
                     </tr>
-                    
-                    <tr id="pothole-3-12" class="pothole-row" 
-                        onclick="highlightPothole('pothole-3-12')">
+
+                    <tr id="pothole-3-12" class="pothole-row" onclick="highlightPothole('pothole-3-12')">
                         <td class="order-col">13</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.00788414563387&lon=-118.16608462623742&zoom=15">34.007884, -118.166085</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.00788414563387&lon=-118.16608462623742&zoom=15">34.007884,
+                                -118.166085</a></td>
                         <td>low</td>
                         <td>2023-08-25</td>
                     </tr>
-                    
-                    <tr id="pothole-3-13" class="pothole-row" 
-                        onclick="highlightPothole('pothole-3-13')">
+
+                    <tr id="pothole-3-13" class="pothole-row" onclick="highlightPothole('pothole-3-13')">
                         <td class="order-col">14</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.00812589596225&lon=-118.16508654508029&zoom=15">34.008126, -118.165087</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.00812589596225&lon=-118.16508654508029&zoom=15">34.008126,
+                                -118.165087</a></td>
                         <td>low</td>
                         <td>2024-03-09</td>
                     </tr>
-                    
-                    <tr id="pothole-3-14" class="pothole-row" 
-                        onclick="highlightPothole('pothole-3-14')">
+
+                    <tr id="pothole-3-14" class="pothole-row" onclick="highlightPothole('pothole-3-14')">
                         <td class="order-col">15</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.01029609217007&lon=-118.16696995024328&zoom=15">34.010296, -118.166970</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.01029609217007&lon=-118.16696995024328&zoom=15">34.010296,
+                                -118.166970</a></td>
                         <td>low</td>
                         <td>2024-02-06</td>
                     </tr>
-                    
-                    <tr id="pothole-3-15" class="pothole-row" 
-                        onclick="highlightPothole('pothole-3-15')">
+
+                    <tr id="pothole-3-15" class="pothole-row" onclick="highlightPothole('pothole-3-15')">
                         <td class="order-col">16</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.0072657052938&lon=-118.17048356555937&zoom=15">34.007266, -118.170484</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.0072657052938&lon=-118.17048356555937&zoom=15">34.007266,
+                                -118.170484</a></td>
                         <td>low</td>
                         <td>2024-02-12</td>
                     </tr>
-                    
-                    <tr id="pothole-3-16" class="pothole-row" 
-                        onclick="highlightPothole('pothole-3-16')">
+
+                    <tr id="pothole-3-16" class="pothole-row" onclick="highlightPothole('pothole-3-16')">
                         <td class="order-col">17</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.006435771086615&lon=-118.17018817351212&zoom=15">34.006436, -118.170188</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.006435771086615&lon=-118.17018817351212&zoom=15">34.006436,
+                                -118.170188</a></td>
                         <td>medium</td>
                         <td>2024-02-15</td>
                     </tr>
-                    
-                    <tr id="pothole-3-17" class="pothole-row" 
-                        onclick="highlightPothole('pothole-3-17')">
+
+                    <tr id="pothole-3-17" class="pothole-row" onclick="highlightPothole('pothole-3-17')">
                         <td class="order-col">18</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.006110916562044&lon=-118.17091991668175&zoom=15">34.006111, -118.170920</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.006110916562044&lon=-118.17091991668175&zoom=15">34.006111,
+                                -118.170920</a></td>
                         <td>high</td>
                         <td>2024-02-26</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 6</h2>
-                        <div>Crew: Crew 1</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 14</p>
-                            <p><strong>Total Distance:</strong> 1.76 km</p>
-                            <p><strong>Estimated Time:</strong> 214 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-6-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-6-0')">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 6</h2>
+            <div>Crew: Crew 1</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 14</p>
+                <p><strong>Total Distance:</strong> 1.76 km</p>
+                <p><strong>Estimated Time:</strong> 214 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-6-0" class="pothole-row" onclick="highlightPothole('pothole-6-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98229590039614&lon=-118.28499177020367&zoom=15">33.982296, -118.284992</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98229590039614&lon=-118.28499177020367&zoom=15">33.982296,
+                                -118.284992</a></td>
                         <td>low</td>
                         <td>2024-04-28</td>
                     </tr>
-                    
-                    <tr id="pothole-6-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-6-1')">
+
+                    <tr id="pothole-6-1" class="pothole-row" onclick="highlightPothole('pothole-6-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.981900989255024&lon=-118.28502070383377&zoom=15">33.981901, -118.285021</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.981900989255024&lon=-118.28502070383377&zoom=15">33.981901,
+                                -118.285021</a></td>
                         <td>medium</td>
                         <td>2024-04-23</td>
                     </tr>
-                    
-                    <tr id="pothole-6-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-6-2')">
+
+                    <tr id="pothole-6-2" class="pothole-row" onclick="highlightPothole('pothole-6-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.981357894185976&lon=-118.28561361010782&zoom=15">33.981358, -118.285614</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.981357894185976&lon=-118.28561361010782&zoom=15">33.981358,
+                                -118.285614</a></td>
                         <td>low</td>
                         <td>2024-05-03</td>
                     </tr>
-                    
-                    <tr id="pothole-6-3" class="pothole-row" 
-                        onclick="highlightPothole('pothole-6-3')">
+
+                    <tr id="pothole-6-3" class="pothole-row" onclick="highlightPothole('pothole-6-3')">
                         <td class="order-col">4</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.980888505004664&lon=-118.28672225255518&zoom=15">33.980889, -118.286722</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.980888505004664&lon=-118.28672225255518&zoom=15">33.980889,
+                                -118.286722</a></td>
                         <td>low</td>
                         <td>2024-04-21</td>
                     </tr>
-                    
-                    <tr id="pothole-6-4" class="pothole-row" 
-                        onclick="highlightPothole('pothole-6-4')">
+
+                    <tr id="pothole-6-4" class="pothole-row" onclick="highlightPothole('pothole-6-4')">
                         <td class="order-col">5</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98350154939704&lon=-118.2844730365111&zoom=15">33.983502, -118.284473</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98350154939704&lon=-118.2844730365111&zoom=15">33.983502,
+                                -118.284473</a></td>
                         <td>low</td>
                         <td>2024-03-31</td>
                     </tr>
-                    
-                    <tr id="pothole-6-5" class="pothole-row" 
-                        onclick="highlightPothole('pothole-6-5')">
+
+                    <tr id="pothole-6-5" class="pothole-row" onclick="highlightPothole('pothole-6-5')">
                         <td class="order-col">6</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.983052928726416&lon=-118.28383898782552&zoom=15">33.983053, -118.283839</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.983052928726416&lon=-118.28383898782552&zoom=15">33.983053,
+                                -118.283839</a></td>
                         <td>low</td>
                         <td>2024-04-24</td>
                     </tr>
-                    
-                    <tr id="pothole-6-6" class="pothole-row" 
-                        onclick="highlightPothole('pothole-6-6')">
+
+                    <tr id="pothole-6-6" class="pothole-row" onclick="highlightPothole('pothole-6-6')">
                         <td class="order-col">7</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98353875967727&lon=-118.2825864422505&zoom=15">33.983539, -118.282586</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98353875967727&lon=-118.2825864422505&zoom=15">33.983539,
+                                -118.282586</a></td>
                         <td>medium</td>
                         <td>2024-04-11</td>
                     </tr>
-                    
-                    <tr id="pothole-6-7" class="pothole-row" 
-                        onclick="highlightPothole('pothole-6-7')">
+
+                    <tr id="pothole-6-7" class="pothole-row" onclick="highlightPothole('pothole-6-7')">
                         <td class="order-col">8</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.983109049811084&lon=-118.282227512607&zoom=15">33.983109, -118.282228</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.983109049811084&lon=-118.282227512607&zoom=15">33.983109,
+                                -118.282228</a></td>
                         <td>low</td>
                         <td>2024-04-15</td>
                     </tr>
-                    
-                    <tr id="pothole-6-8" class="pothole-row" 
-                        onclick="highlightPothole('pothole-6-8')">
+
+                    <tr id="pothole-6-8" class="pothole-row" onclick="highlightPothole('pothole-6-8')">
                         <td class="order-col">9</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98310336048775&lon=-118.28140892304432&zoom=15">33.983103, -118.281409</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98310336048775&lon=-118.28140892304432&zoom=15">33.983103,
+                                -118.281409</a></td>
                         <td>low</td>
                         <td>2024-04-20</td>
                     </tr>
-                    
-                    <tr id="pothole-6-9" class="pothole-row" 
-                        onclick="highlightPothole('pothole-6-9')">
+
+                    <tr id="pothole-6-9" class="pothole-row" onclick="highlightPothole('pothole-6-9')">
                         <td class="order-col">10</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.982798952239655&lon=-118.28017342443694&zoom=15">33.982799, -118.280173</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.982798952239655&lon=-118.28017342443694&zoom=15">33.982799,
+                                -118.280173</a></td>
                         <td>low</td>
                         <td>2024-04-25</td>
                     </tr>
-                    
-                    <tr id="pothole-6-10" class="pothole-row" 
-                        onclick="highlightPothole('pothole-6-10')">
+
+                    <tr id="pothole-6-10" class="pothole-row" onclick="highlightPothole('pothole-6-10')">
                         <td class="order-col">11</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98214809109566&lon=-118.28024731854826&zoom=15">33.982148, -118.280247</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98214809109566&lon=-118.28024731854826&zoom=15">33.982148,
+                                -118.280247</a></td>
                         <td>medium</td>
                         <td>2024-05-01</td>
                     </tr>
-                    
-                    <tr id="pothole-6-11" class="pothole-row" 
-                        onclick="highlightPothole('pothole-6-11')">
+
+                    <tr id="pothole-6-11" class="pothole-row" onclick="highlightPothole('pothole-6-11')">
                         <td class="order-col">12</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.9824665895044&lon=-118.27888933114184&zoom=15">33.982467, -118.278889</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.9824665895044&lon=-118.27888933114184&zoom=15">33.982467,
+                                -118.278889</a></td>
                         <td>medium</td>
                         <td>2024-03-28</td>
                     </tr>
-                    
-                    <tr id="pothole-6-12" class="pothole-row" 
-                        onclick="highlightPothole('pothole-6-12')">
+
+                    <tr id="pothole-6-12" class="pothole-row" onclick="highlightPothole('pothole-6-12')">
                         <td class="order-col">13</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98486277224813&lon=-118.2818141928022&zoom=15">33.984863, -118.281814</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98486277224813&lon=-118.2818141928022&zoom=15">33.984863,
+                                -118.281814</a></td>
                         <td>low</td>
                         <td>2024-04-14</td>
                     </tr>
-                    
-                    <tr id="pothole-6-13" class="pothole-row" 
-                        onclick="highlightPothole('pothole-6-13')">
+
+                    <tr id="pothole-6-13" class="pothole-row" onclick="highlightPothole('pothole-6-13')">
                         <td class="order-col">14</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98469141902988&lon=-118.28311570263212&zoom=15">33.984691, -118.283116</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98469141902988&lon=-118.28311570263212&zoom=15">33.984691,
+                                -118.283116</a></td>
                         <td>low</td>
                         <td>2024-05-11</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 9</h2>
-                        <div>Crew: Crew 1</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 3</p>
-                            <p><strong>Total Distance:</strong> 0.15 km</p>
-                            <p><strong>Estimated Time:</strong> 45 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-9-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-9-0')">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 9</h2>
+            <div>Crew: Crew 1</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 3</p>
+                <p><strong>Total Distance:</strong> 0.15 km</p>
+                <p><strong>Estimated Time:</strong> 45 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-9-0" class="pothole-row" onclick="highlightPothole('pothole-9-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.004307934623995&lon=-118.16468945983736&zoom=15">34.004308, -118.164689</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.004307934623995&lon=-118.16468945983736&zoom=15">34.004308,
+                                -118.164689</a></td>
                         <td>medium</td>
                         <td>2023-02-06</td>
                     </tr>
-                    
-                    <tr id="pothole-9-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-9-1')">
+
+                    <tr id="pothole-9-1" class="pothole-row" onclick="highlightPothole('pothole-9-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.00388936095554&lon=-118.16485422181336&zoom=15">34.003889, -118.164854</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.00388936095554&lon=-118.16485422181336&zoom=15">34.003889,
+                                -118.164854</a></td>
                         <td>low</td>
                         <td>2024-03-06</td>
                     </tr>
-                    
-                    <tr id="pothole-9-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-9-2')">
+
+                    <tr id="pothole-9-2" class="pothole-row" onclick="highlightPothole('pothole-9-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.002957693518184&lon=-118.16473179101696&zoom=15">34.002958, -118.164732</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.002957693518184&lon=-118.16473179101696&zoom=15">34.002958,
+                                -118.164732</a></td>
                         <td>medium</td>
                         <td>2024-03-25</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 12</h2>
-                        <div>Crew: Crew 1</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 4</p>
-                            <p><strong>Total Distance:</strong> 0.29 km</p>
-                            <p><strong>Estimated Time:</strong> 61 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-12-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-12-0')">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 12</h2>
+            <div>Crew: Crew 1</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 4</p>
+                <p><strong>Total Distance:</strong> 0.29 km</p>
+                <p><strong>Estimated Time:</strong> 61 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-12-0" class="pothole-row" onclick="highlightPothole('pothole-12-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.97777853369961&lon=-118.22115467265104&zoom=15">33.977779, -118.221155</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.97777853369961&lon=-118.22115467265104&zoom=15">33.977779,
+                                -118.221155</a></td>
                         <td>medium</td>
                         <td>2024-01-30</td>
                     </tr>
-                    
-                    <tr id="pothole-12-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-12-1')">
+
+                    <tr id="pothole-12-1" class="pothole-row" onclick="highlightPothole('pothole-12-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.977449918005725&lon=-118.22136361784874&zoom=15">33.977450, -118.221364</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.977449918005725&lon=-118.22136361784874&zoom=15">33.977450,
+                                -118.221364</a></td>
                         <td>low</td>
                         <td>2024-01-27</td>
                     </tr>
-                    
-                    <tr id="pothole-12-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-12-2')">
+
+                    <tr id="pothole-12-2" class="pothole-row" onclick="highlightPothole('pothole-12-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.977959623134886&lon=-118.21935389409012&zoom=15">33.977960, -118.219354</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.977959623134886&lon=-118.21935389409012&zoom=15">33.977960,
+                                -118.219354</a></td>
                         <td>medium</td>
                         <td>2023-12-28</td>
                     </tr>
-                    
-                    <tr id="pothole-12-3" class="pothole-row" 
-                        onclick="highlightPothole('pothole-12-3')">
+
+                    <tr id="pothole-12-3" class="pothole-row" onclick="highlightPothole('pothole-12-3')">
                         <td class="order-col">4</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.97824243257979&lon=-118.2188805798786&zoom=15">33.978242, -118.218881</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.97824243257979&lon=-118.2188805798786&zoom=15">33.978242,
+                                -118.218881</a></td>
                         <td>low</td>
                         <td>2024-01-01</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 15</h2>
-                        <div>Crew: Crew 1</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 3</p>
-                            <p><strong>Total Distance:</strong> 0.27 km</p>
-                            <p><strong>Estimated Time:</strong> 46 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-15-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-15-0')">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 15</h2>
+            <div>Crew: Crew 1</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 3</p>
+                <p><strong>Total Distance:</strong> 0.27 km</p>
+                <p><strong>Estimated Time:</strong> 46 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-15-0" class="pothole-row" onclick="highlightPothole('pothole-15-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.988854003178176&lon=-118.27555184602188&zoom=15">33.988854, -118.275552</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.988854003178176&lon=-118.27555184602188&zoom=15">33.988854,
+                                -118.275552</a></td>
                         <td>low</td>
                         <td>2024-04-08</td>
                     </tr>
-                    
-                    <tr id="pothole-15-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-15-1')">
+
+                    <tr id="pothole-15-1" class="pothole-row" onclick="highlightPothole('pothole-15-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.989062242789984&lon=-118.27467259812468&zoom=15">33.989062, -118.274673</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.989062242789984&lon=-118.27467259812468&zoom=15">33.989062,
+                                -118.274673</a></td>
                         <td>low</td>
                         <td>2024-04-10</td>
                     </tr>
-                    
-                    <tr id="pothole-15-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-15-2')">
+
+                    <tr id="pothole-15-2" class="pothole-row" onclick="highlightPothole('pothole-15-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98844256154465&lon=-118.2765915971038&zoom=15">33.988443, -118.276592</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98844256154465&lon=-118.2765915971038&zoom=15">33.988443,
+                                -118.276592</a></td>
                         <td>medium</td>
                         <td>2023-04-17</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 18</h2>
-                        <div>Crew: Crew 1</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 6</p>
-                            <p><strong>Total Distance:</strong> 0.75 km</p>
-                            <p><strong>Estimated Time:</strong> 91 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-18-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-18-0')">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 18</h2>
+            <div>Crew: Crew 1</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 6</p>
+                <p><strong>Total Distance:</strong> 0.75 km</p>
+                <p><strong>Estimated Time:</strong> 91 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-18-0" class="pothole-row" onclick="highlightPothole('pothole-18-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98385432596943&lon=-118.2206289346005&zoom=15">33.983854, -118.220629</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98385432596943&lon=-118.2206289346005&zoom=15">33.983854,
+                                -118.220629</a></td>
                         <td>low</td>
                         <td>2024-01-09</td>
                     </tr>
-                    
-                    <tr id="pothole-18-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-18-1')">
+
+                    <tr id="pothole-18-1" class="pothole-row" onclick="highlightPothole('pothole-18-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98316390933053&lon=-118.2207900394929&zoom=15">33.983164, -118.220790</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98316390933053&lon=-118.2207900394929&zoom=15">33.983164,
+                                -118.220790</a></td>
                         <td>medium</td>
                         <td>2024-01-14</td>
                     </tr>
-                    
-                    <tr id="pothole-18-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-18-2')">
+
+                    <tr id="pothole-18-2" class="pothole-row" onclick="highlightPothole('pothole-18-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98239489912873&lon=-118.2212979567568&zoom=15">33.982395, -118.221298</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98239489912873&lon=-118.2212979567568&zoom=15">33.982395,
+                                -118.221298</a></td>
                         <td>low</td>
                         <td>2024-01-24</td>
                     </tr>
-                    
-                    <tr id="pothole-18-3" class="pothole-row" 
-                        onclick="highlightPothole('pothole-18-3')">
+
+                    <tr id="pothole-18-3" class="pothole-row" onclick="highlightPothole('pothole-18-3')">
                         <td class="order-col">4</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.984348029600525&lon=-118.22134444345278&zoom=15">33.984348, -118.221344</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.984348029600525&lon=-118.22134444345278&zoom=15">33.984348,
+                                -118.221344</a></td>
                         <td>low</td>
                         <td>2024-02-03</td>
                     </tr>
-                    
-                    <tr id="pothole-18-4" class="pothole-row" 
-                        onclick="highlightPothole('pothole-18-4')">
+
+                    <tr id="pothole-18-4" class="pothole-row" onclick="highlightPothole('pothole-18-4')">
                         <td class="order-col">5</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98518769972129&lon=-118.22122871532042&zoom=15">33.985188, -118.221229</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98518769972129&lon=-118.22122871532042&zoom=15">33.985188,
+                                -118.221229</a></td>
                         <td>low</td>
                         <td>2024-01-26</td>
                     </tr>
-                    
-                    <tr id="pothole-18-5" class="pothole-row" 
-                        onclick="highlightPothole('pothole-18-5')">
+
+                    <tr id="pothole-18-5" class="pothole-row" onclick="highlightPothole('pothole-18-5')">
                         <td class="order-col">6</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98435562351715&lon=-118.2186001568684&zoom=15">33.984356, -118.218600</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98435562351715&lon=-118.2186001568684&zoom=15">33.984356,
+                                -118.218600</a></td>
                         <td>low</td>
                         <td>2023-12-25</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 21</h2>
-                        <div>Crew: Crew 1</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 3</p>
-                            <p><strong>Total Distance:</strong> 0.27 km</p>
-                            <p><strong>Estimated Time:</strong> 46 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-21-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-21-0')">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 21</h2>
+            <div>Crew: Crew 1</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 3</p>
+                <p><strong>Total Distance:</strong> 0.27 km</p>
+                <p><strong>Estimated Time:</strong> 46 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-21-0" class="pothole-row" onclick="highlightPothole('pothole-21-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.9778372090609&lon=-118.22622327351657&zoom=15">33.977837, -118.226223</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.9778372090609&lon=-118.22622327351657&zoom=15">33.977837,
+                                -118.226223</a></td>
                         <td>low</td>
                         <td>2023-12-20</td>
                     </tr>
-                    
-                    <tr id="pothole-21-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-21-1')">
+
+                    <tr id="pothole-21-1" class="pothole-row" onclick="highlightPothole('pothole-21-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.97836988233916&lon=-118.2256274452365&zoom=15">33.978370, -118.225627</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.97836988233916&lon=-118.2256274452365&zoom=15">33.978370,
+                                -118.225627</a></td>
                         <td>medium</td>
                         <td>2023-12-26</td>
                     </tr>
-                    
-                    <tr id="pothole-21-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-21-2')">
+
+                    <tr id="pothole-21-2" class="pothole-row" onclick="highlightPothole('pothole-21-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.977561968879634&lon=-118.22386894599552&zoom=15">33.977562, -118.223869</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.977561968879634&lon=-118.22386894599552&zoom=15">33.977562,
+                                -118.223869</a></td>
                         <td>medium</td>
                         <td>2023-12-19</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <h2>Crew 2 Assignments</h2>
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 1</h2>
-                        <div>Crew: Crew 2</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 14</p>
-                            <p><strong>Total Distance:</strong> 1.75 km</p>
-                            <p><strong>Estimated Time:</strong> 214 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-1-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-1-0')">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <h2>Crew 2 Assignments</h2>
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 1</h2>
+            <div>Crew: Crew 2</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 14</p>
+                <p><strong>Total Distance:</strong> 1.75 km</p>
+                <p><strong>Estimated Time:</strong> 214 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-1-0" class="pothole-row" onclick="highlightPothole('pothole-1-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98092418061847&lon=-118.28239374310832&zoom=15">33.980924, -118.282394</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98092418061847&lon=-118.28239374310832&zoom=15">33.980924,
+                                -118.282394</a></td>
                         <td>medium</td>
                         <td>2024-03-29</td>
                     </tr>
-                    
-                    <tr id="pothole-1-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-1-1')">
+
+                    <tr id="pothole-1-1" class="pothole-row" onclick="highlightPothole('pothole-1-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98061004907322&lon=-118.28219865529135&zoom=15">33.980610, -118.282199</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98061004907322&lon=-118.28219865529135&zoom=15">33.980610,
+                                -118.282199</a></td>
                         <td>low</td>
                         <td>2024-04-02</td>
                     </tr>
-                    
-                    <tr id="pothole-1-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-1-2')">
+
+                    <tr id="pothole-1-2" class="pothole-row" onclick="highlightPothole('pothole-1-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98014878069748&lon=-118.282654984775&zoom=15">33.980149, -118.282655</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98014878069748&lon=-118.282654984775&zoom=15">33.980149,
+                                -118.282655</a></td>
                         <td>low</td>
                         <td>2024-05-10</td>
                     </tr>
-                    
-                    <tr id="pothole-1-3" class="pothole-row" 
-                        onclick="highlightPothole('pothole-1-3')">
+
+                    <tr id="pothole-1-3" class="pothole-row" onclick="highlightPothole('pothole-1-3')">
                         <td class="order-col">4</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98014159188065&lon=-118.28318869992124&zoom=15">33.980142, -118.283189</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98014159188065&lon=-118.28318869992124&zoom=15">33.980142,
+                                -118.283189</a></td>
                         <td>medium</td>
                         <td>2024-05-09</td>
                     </tr>
-                    
-                    <tr id="pothole-1-4" class="pothole-row" 
-                        onclick="highlightPothole('pothole-1-4')">
+
+                    <tr id="pothole-1-4" class="pothole-row" onclick="highlightPothole('pothole-1-4')">
                         <td class="order-col">5</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.9804806038847&lon=-118.28318693563654&zoom=15">33.980481, -118.283187</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.9804806038847&lon=-118.28318693563654&zoom=15">33.980481,
+                                -118.283187</a></td>
                         <td>low</td>
                         <td>2024-05-13</td>
                     </tr>
-                    
-                    <tr id="pothole-1-5" class="pothole-row" 
-                        onclick="highlightPothole('pothole-1-5')">
+
+                    <tr id="pothole-1-5" class="pothole-row" onclick="highlightPothole('pothole-1-5')">
                         <td class="order-col">6</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.9796278328545&lon=-118.28210093408548&zoom=15">33.979628, -118.282101</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.9796278328545&lon=-118.28210093408548&zoom=15">33.979628,
+                                -118.282101</a></td>
                         <td>low</td>
                         <td>2024-04-19</td>
                     </tr>
-                    
-                    <tr id="pothole-1-6" class="pothole-row" 
-                        onclick="highlightPothole('pothole-1-6')">
+
+                    <tr id="pothole-1-6" class="pothole-row" onclick="highlightPothole('pothole-1-6')">
                         <td class="order-col">7</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.97876240682224&lon=-118.28261430013576&zoom=15">33.978762, -118.282614</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.97876240682224&lon=-118.28261430013576&zoom=15">33.978762,
+                                -118.282614</a></td>
                         <td>medium</td>
                         <td>2024-04-18</td>
                     </tr>
-                    
-                    <tr id="pothole-1-7" class="pothole-row" 
-                        onclick="highlightPothole('pothole-1-7')">
+
+                    <tr id="pothole-1-7" class="pothole-row" onclick="highlightPothole('pothole-1-7')">
                         <td class="order-col">8</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.97741977635891&lon=-118.2827773855958&zoom=15">33.977420, -118.282777</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.97741977635891&lon=-118.2827773855958&zoom=15">33.977420,
+                                -118.282777</a></td>
                         <td>low</td>
                         <td>2024-05-12</td>
                     </tr>
-                    
-                    <tr id="pothole-1-8" class="pothole-row" 
-                        onclick="highlightPothole('pothole-1-8')">
+
+                    <tr id="pothole-1-8" class="pothole-row" onclick="highlightPothole('pothole-1-8')">
                         <td class="order-col">9</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.97712181086881&lon=-118.2809343582208&zoom=15">33.977122, -118.280934</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.97712181086881&lon=-118.2809343582208&zoom=15">33.977122,
+                                -118.280934</a></td>
                         <td>medium</td>
                         <td>2024-04-01</td>
                     </tr>
-                    
-                    <tr id="pothole-1-9" class="pothole-row" 
-                        onclick="highlightPothole('pothole-1-9')">
+
+                    <tr id="pothole-1-9" class="pothole-row" onclick="highlightPothole('pothole-1-9')">
                         <td class="order-col">10</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.97686516471106&lon=-118.27958858005364&zoom=15">33.976865, -118.279589</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.97686516471106&lon=-118.27958858005364&zoom=15">33.976865,
+                                -118.279589</a></td>
                         <td>medium</td>
                         <td>2024-04-09</td>
                     </tr>
-                    
-                    <tr id="pothole-1-10" class="pothole-row" 
-                        onclick="highlightPothole('pothole-1-10')">
+
+                    <tr id="pothole-1-10" class="pothole-row" onclick="highlightPothole('pothole-1-10')">
                         <td class="order-col">11</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.97541272411614&lon=-118.28017500901854&zoom=15">33.975413, -118.280175</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.97541272411614&lon=-118.28017500901854&zoom=15">33.975413,
+                                -118.280175</a></td>
                         <td>medium</td>
                         <td>2023-05-23</td>
                     </tr>
-                    
-                    <tr id="pothole-1-11" class="pothole-row" 
-                        onclick="highlightPothole('pothole-1-11')">
+
+                    <tr id="pothole-1-11" class="pothole-row" onclick="highlightPothole('pothole-1-11')">
                         <td class="order-col">12</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.974594717297954&lon=-118.27916773895892&zoom=15">33.974595, -118.279168</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.974594717297954&lon=-118.27916773895892&zoom=15">33.974595,
+                                -118.279168</a></td>
                         <td>medium</td>
                         <td>2024-05-05</td>
                     </tr>
-                    
-                    <tr id="pothole-1-12" class="pothole-row" 
-                        onclick="highlightPothole('pothole-1-12')">
+
+                    <tr id="pothole-1-12" class="pothole-row" onclick="highlightPothole('pothole-1-12')">
                         <td class="order-col">13</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.973616257120895&lon=-118.27808795126909&zoom=15">33.973616, -118.278088</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.973616257120895&lon=-118.27808795126909&zoom=15">33.973616,
+                                -118.278088</a></td>
                         <td>medium</td>
                         <td>2024-05-04</td>
                     </tr>
-                    
-                    <tr id="pothole-1-13" class="pothole-row" 
-                        onclick="highlightPothole('pothole-1-13')">
+
+                    <tr id="pothole-1-13" class="pothole-row" onclick="highlightPothole('pothole-1-13')">
                         <td class="order-col">14</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.975253005555835&lon=-118.28217248113717&zoom=15">33.975253, -118.282172</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.975253005555835&lon=-118.28217248113717&zoom=15">33.975253,
+                                -118.282172</a></td>
                         <td>high</td>
                         <td>2024-03-26</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 4</h2>
-                        <div>Crew: Crew 2</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 3</p>
-                            <p><strong>Total Distance:</strong> 0.25 km</p>
-                            <p><strong>Estimated Time:</strong> 45 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-4-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-4-0')">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 4</h2>
+            <div>Crew: Crew 2</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 3</p>
+                <p><strong>Total Distance:</strong> 0.25 km</p>
+                <p><strong>Estimated Time:</strong> 45 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-4-0" class="pothole-row" onclick="highlightPothole('pothole-4-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.90563290575868&lon=-118.34963894861956&zoom=15">33.905633, -118.349639</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.90563290575868&lon=-118.34963894861956&zoom=15">33.905633,
+                                -118.349639</a></td>
                         <td>medium</td>
                         <td>2023-05-21</td>
                     </tr>
-                    
-                    <tr id="pothole-4-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-4-1')">
+
+                    <tr id="pothole-4-1" class="pothole-row" onclick="highlightPothole('pothole-4-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.90423268759186&lon=-118.35047629264596&zoom=15">33.904233, -118.350476</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.90423268759186&lon=-118.35047629264596&zoom=15">33.904233,
+                                -118.350476</a></td>
                         <td>low</td>
                         <td>2023-05-20</td>
                     </tr>
-                    
-                    <tr id="pothole-4-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-4-2')">
+
+                    <tr id="pothole-4-2" class="pothole-row" onclick="highlightPothole('pothole-4-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.9045135221757&lon=-118.35117046847786&zoom=15">33.904514, -118.351170</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.9045135221757&lon=-118.35117046847786&zoom=15">33.904514,
+                                -118.351170</a></td>
                         <td>low</td>
                         <td>2023-01-12</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 7</h2>
-                        <div>Crew: Crew 2</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 3</p>
-                            <p><strong>Total Distance:</strong> 0.17 km</p>
-                            <p><strong>Estimated Time:</strong> 45 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-7-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-7-0')">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 7</h2>
+            <div>Crew: Crew 2</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 3</p>
+                <p><strong>Total Distance:</strong> 0.17 km</p>
+                <p><strong>Estimated Time:</strong> 45 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-7-0" class="pothole-row" onclick="highlightPothole('pothole-7-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.981688013310375&lon=-118.21793282548389&zoom=15">33.981688, -118.217933</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.981688013310375&lon=-118.21793282548389&zoom=15">33.981688,
+                                -118.217933</a></td>
                         <td>low</td>
                         <td>2023-12-17</td>
                     </tr>
-                    
-                    <tr id="pothole-7-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-7-1')">
+
+                    <tr id="pothole-7-1" class="pothole-row" onclick="highlightPothole('pothole-7-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98144887428448&lon=-118.21672817171824&zoom=15">33.981449, -118.216728</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98144887428448&lon=-118.21672817171824&zoom=15">33.981449,
+                                -118.216728</a></td>
                         <td>medium</td>
                         <td>2023-12-23</td>
                     </tr>
-                    
-                    <tr id="pothole-7-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-7-2')">
+
+                    <tr id="pothole-7-2" class="pothole-row" onclick="highlightPothole('pothole-7-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98188650246522&lon=-118.21651896817592&zoom=15">33.981887, -118.216519</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98188650246522&lon=-118.21651896817592&zoom=15">33.981887,
+                                -118.216519</a></td>
                         <td>medium</td>
                         <td>2024-01-31</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 10</h2>
-                        <div>Crew: Crew 2</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 5</p>
-                            <p><strong>Total Distance:</strong> 0.44 km</p>
-                            <p><strong>Estimated Time:</strong> 76 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-10-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-10-0')">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 10</h2>
+            <div>Crew: Crew 2</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 5</p>
+                <p><strong>Total Distance:</strong> 0.44 km</p>
+                <p><strong>Estimated Time:</strong> 76 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-10-0" class="pothole-row" onclick="highlightPothole('pothole-10-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.00647828154728&lon=-118.17487936626488&zoom=15">34.006478, -118.174879</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.00647828154728&lon=-118.17487936626488&zoom=15">34.006478,
+                                -118.174879</a></td>
                         <td>low</td>
                         <td>2024-03-24</td>
                     </tr>
-                    
-                    <tr id="pothole-10-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-10-1')">
+
+                    <tr id="pothole-10-1" class="pothole-row" onclick="highlightPothole('pothole-10-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.00727392584338&lon=-118.1749281038582&zoom=15">34.007274, -118.174928</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.00727392584338&lon=-118.1749281038582&zoom=15">34.007274,
+                                -118.174928</a></td>
                         <td>medium</td>
                         <td>2023-05-25</td>
                     </tr>
-                    
-                    <tr id="pothole-10-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-10-2')">
+
+                    <tr id="pothole-10-2" class="pothole-row" onclick="highlightPothole('pothole-10-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.0073863848974&lon=-118.17461616623056&zoom=15">34.007386, -118.174616</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.0073863848974&lon=-118.17461616623056&zoom=15">34.007386,
+                                -118.174616</a></td>
                         <td>medium</td>
                         <td>2024-03-22</td>
                     </tr>
-                    
-                    <tr id="pothole-10-3" class="pothole-row" 
-                        onclick="highlightPothole('pothole-10-3')">
+
+                    <tr id="pothole-10-3" class="pothole-row" onclick="highlightPothole('pothole-10-3')">
                         <td class="order-col">4</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.00845226780343&lon=-118.17362871906576&zoom=15">34.008452, -118.173629</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.00845226780343&lon=-118.17362871906576&zoom=15">34.008452,
+                                -118.173629</a></td>
                         <td>low</td>
                         <td>2024-03-17</td>
                     </tr>
-                    
-                    <tr id="pothole-10-4" class="pothole-row" 
-                        onclick="highlightPothole('pothole-10-4')">
+
+                    <tr id="pothole-10-4" class="pothole-row" onclick="highlightPothole('pothole-10-4')">
                         <td class="order-col">5</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.00983623364892&lon=-118.17272459543403&zoom=15">34.009836, -118.172725</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.00983623364892&lon=-118.17272459543403&zoom=15">34.009836,
+                                -118.172725</a></td>
                         <td>medium</td>
                         <td>2024-02-13</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 13</h2>
-                        <div>Crew: Crew 2</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 4</p>
-                            <p><strong>Total Distance:</strong> 0.24 km</p>
-                            <p><strong>Estimated Time:</strong> 60 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-13-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-13-0')">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 13</h2>
+            <div>Crew: Crew 2</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 4</p>
+                <p><strong>Total Distance:</strong> 0.24 km</p>
+                <p><strong>Estimated Time:</strong> 60 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-13-0" class="pothole-row" onclick="highlightPothole('pothole-13-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.9812411029315&lon=-118.22827428335933&zoom=15">33.981241, -118.228274</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.9812411029315&lon=-118.22827428335933&zoom=15">33.981241,
+                                -118.228274</a></td>
                         <td>low</td>
                         <td>2024-01-17</td>
                     </tr>
-                    
-                    <tr id="pothole-13-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-13-1')">
+
+                    <tr id="pothole-13-1" class="pothole-row" onclick="highlightPothole('pothole-13-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98169248203747&lon=-118.22846232314858&zoom=15">33.981692, -118.228462</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98169248203747&lon=-118.22846232314858&zoom=15">33.981692,
+                                -118.228462</a></td>
                         <td>medium</td>
                         <td>2024-01-12</td>
                     </tr>
-                    
-                    <tr id="pothole-13-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-13-2')">
+
+                    <tr id="pothole-13-2" class="pothole-row" onclick="highlightPothole('pothole-13-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.981972260711885&lon=-118.22889360124452&zoom=15">33.981972, -118.228894</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.981972260711885&lon=-118.22889360124452&zoom=15">33.981972,
+                                -118.228894</a></td>
                         <td>low</td>
                         <td>2023-12-21</td>
                     </tr>
-                    
-                    <tr id="pothole-13-3" class="pothole-row" 
-                        onclick="highlightPothole('pothole-13-3')">
+
+                    <tr id="pothole-13-3" class="pothole-row" onclick="highlightPothole('pothole-13-3')">
                         <td class="order-col">4</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98166831052643&lon=-118.2275157147656&zoom=15">33.981668, -118.227516</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98166831052643&lon=-118.2275157147656&zoom=15">33.981668,
+                                -118.227516</a></td>
                         <td>low</td>
                         <td>2024-01-25</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 16</h2>
-                        <div>Crew: Crew 2</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 3</p>
-                            <p><strong>Total Distance:</strong> 0.29 km</p>
-                            <p><strong>Estimated Time:</strong> 46 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-16-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-16-0')">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 16</h2>
+            <div>Crew: Crew 2</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 3</p>
+                <p><strong>Total Distance:</strong> 0.29 km</p>
+                <p><strong>Estimated Time:</strong> 46 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-16-0" class="pothole-row" onclick="highlightPothole('pothole-16-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.00907548931778&lon=-118.17703330548424&zoom=15">34.009075, -118.177033</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.00907548931778&lon=-118.17703330548424&zoom=15">34.009075,
+                                -118.177033</a></td>
                         <td>low</td>
                         <td>2024-03-21</td>
                     </tr>
-                    
-                    <tr id="pothole-16-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-16-1')">
+
+                    <tr id="pothole-16-1" class="pothole-row" onclick="highlightPothole('pothole-16-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.0082865620296&lon=-118.17674092711052&zoom=15">34.008287, -118.176741</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.0082865620296&lon=-118.17674092711052&zoom=15">34.008287,
+                                -118.176741</a></td>
                         <td>low</td>
                         <td>2024-02-23</td>
                     </tr>
-                    
-                    <tr id="pothole-16-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-16-2')">
+
+                    <tr id="pothole-16-2" class="pothole-row" onclick="highlightPothole('pothole-16-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.01006964645956&lon=-118.17640214676248&zoom=15">34.010070, -118.176402</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.01006964645956&lon=-118.17640214676248&zoom=15">34.010070,
+                                -118.176402</a></td>
                         <td>low</td>
                         <td>2024-02-07</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 19</h2>
-                        <div>Crew: Crew 2</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 4</p>
-                            <p><strong>Total Distance:</strong> 0.51 km</p>
-                            <p><strong>Estimated Time:</strong> 61 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-19-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-19-0')">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 19</h2>
+            <div>Crew: Crew 2</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 4</p>
+                <p><strong>Total Distance:</strong> 0.51 km</p>
+                <p><strong>Estimated Time:</strong> 61 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-19-0" class="pothole-row" onclick="highlightPothole('pothole-19-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.01545753425961&lon=-118.1702847281186&zoom=15">34.015458, -118.170285</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.01545753425961&lon=-118.1702847281186&zoom=15">34.015458,
+                                -118.170285</a></td>
                         <td>low</td>
                         <td>2024-02-20</td>
                     </tr>
-                    
-                    <tr id="pothole-19-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-19-1')">
+
+                    <tr id="pothole-19-1" class="pothole-row" onclick="highlightPothole('pothole-19-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.01623042596248&lon=-118.16846099115554&zoom=15">34.016230, -118.168461</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.01623042596248&lon=-118.16846099115554&zoom=15">34.016230,
+                                -118.168461</a></td>
                         <td>medium</td>
                         <td>2024-02-21</td>
                     </tr>
-                    
-                    <tr id="pothole-19-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-19-2')">
+
+                    <tr id="pothole-19-2" class="pothole-row" onclick="highlightPothole('pothole-19-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.01751996494291&lon=-118.16924849119268&zoom=15">34.017520, -118.169248</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.01751996494291&lon=-118.16924849119268&zoom=15">34.017520,
+                                -118.169248</a></td>
                         <td>low</td>
                         <td>2024-02-18</td>
                     </tr>
-                    
-                    <tr id="pothole-19-3" class="pothole-row" 
-                        onclick="highlightPothole('pothole-19-3')">
+
+                    <tr id="pothole-19-3" class="pothole-row" onclick="highlightPothole('pothole-19-3')">
                         <td class="order-col">4</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.01876135221712&lon=-118.1682620914732&zoom=15">34.018761, -118.168262</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.01876135221712&lon=-118.1682620914732&zoom=15">34.018761,
+                                -118.168262</a></td>
                         <td>low</td>
                         <td>2024-02-28</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <h2>Crew 3 Assignments</h2>
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 2</h2>
-                        <div>Crew: Crew 3</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 4</p>
-                            <p><strong>Total Distance:</strong> 0.4 km</p>
-                            <p><strong>Estimated Time:</strong> 61 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-2-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-2-0')">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <h2>Crew 3 Assignments</h2>
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 2</h2>
+            <div>Crew: Crew 3</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 4</p>
+                <p><strong>Total Distance:</strong> 0.4 km</p>
+                <p><strong>Estimated Time:</strong> 61 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-2-0" class="pothole-row" onclick="highlightPothole('pothole-2-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.97570821109909&lon=-118.27372121937212&zoom=15">33.975708, -118.273721</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.97570821109909&lon=-118.27372121937212&zoom=15">33.975708,
+                                -118.273721</a></td>
                         <td>low</td>
                         <td>2024-03-30</td>
                     </tr>
-                    
-                    <tr id="pothole-2-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-2-1')">
+
+                    <tr id="pothole-2-1" class="pothole-row" onclick="highlightPothole('pothole-2-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.97636431412087&lon=-118.27210213927135&zoom=15">33.976364, -118.272102</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.97636431412087&lon=-118.27210213927135&zoom=15">33.976364,
+                                -118.272102</a></td>
                         <td>medium</td>
                         <td>2024-04-17</td>
                     </tr>
-                    
-                    <tr id="pothole-2-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-2-2')">
+
+                    <tr id="pothole-2-2" class="pothole-row" onclick="highlightPothole('pothole-2-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.97718766612053&lon=-118.27295326279908&zoom=15">33.977188, -118.272953</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.97718766612053&lon=-118.27295326279908&zoom=15">33.977188,
+                                -118.272953</a></td>
                         <td>low</td>
                         <td>2024-04-12</td>
                     </tr>
-                    
-                    <tr id="pothole-2-3" class="pothole-row" 
-                        onclick="highlightPothole('pothole-2-3')">
+
+                    <tr id="pothole-2-3" class="pothole-row" onclick="highlightPothole('pothole-2-3')">
                         <td class="order-col">4</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.977688623556475&lon=-118.27405491734446&zoom=15">33.977689, -118.274055</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.977688623556475&lon=-118.27405491734446&zoom=15">33.977689,
+                                -118.274055</a></td>
                         <td>medium</td>
                         <td>2024-05-14</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 5</h2>
-                        <div>Crew: Crew 3</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 5</p>
-                            <p><strong>Total Distance:</strong> 0.89 km</p>
-                            <p><strong>Estimated Time:</strong> 77 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-5-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-5-0')">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 5</h2>
+            <div>Crew: Crew 3</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 5</p>
+                <p><strong>Total Distance:</strong> 0.89 km</p>
+                <p><strong>Estimated Time:</strong> 77 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-5-0" class="pothole-row" onclick="highlightPothole('pothole-5-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.03269455021842&lon=-118.27398447627736&zoom=15">34.032695, -118.273984</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.03269455021842&lon=-118.27398447627736&zoom=15">34.032695,
+                                -118.273984</a></td>
                         <td>low</td>
                         <td>2023-12-08</td>
                     </tr>
-                    
-                    <tr id="pothole-5-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-5-1')">
+
+                    <tr id="pothole-5-1" class="pothole-row" onclick="highlightPothole('pothole-5-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.03378753855024&lon=-118.274887776224&zoom=15">34.033788, -118.274888</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.03378753855024&lon=-118.274887776224&zoom=15">34.033788,
+                                -118.274888</a></td>
                         <td>low</td>
                         <td>2023-11-10</td>
                     </tr>
-                    
-                    <tr id="pothole-5-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-5-2')">
+
+                    <tr id="pothole-5-2" class="pothole-row" onclick="highlightPothole('pothole-5-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.034408198784746&lon=-118.2728844593476&zoom=15">34.034408, -118.272884</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.034408198784746&lon=-118.2728844593476&zoom=15">34.034408,
+                                -118.272884</a></td>
                         <td>low</td>
                         <td>2023-12-02</td>
                     </tr>
-                    
-                    <tr id="pothole-5-3" class="pothole-row" 
-                        onclick="highlightPothole('pothole-5-3')">
+
+                    <tr id="pothole-5-3" class="pothole-row" onclick="highlightPothole('pothole-5-3')">
                         <td class="order-col">4</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.03106989955367&lon=-118.2745378183102&zoom=15">34.031070, -118.274538</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.03106989955367&lon=-118.2745378183102&zoom=15">34.031070,
+                                -118.274538</a></td>
                         <td>medium</td>
                         <td>2023-11-06</td>
                     </tr>
-                    
-                    <tr id="pothole-5-4" class="pothole-row" 
-                        onclick="highlightPothole('pothole-5-4')">
+
+                    <tr id="pothole-5-4" class="pothole-row" onclick="highlightPothole('pothole-5-4')">
                         <td class="order-col">5</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.03101731817934&lon=-118.2760550809988&zoom=15">34.031017, -118.276055</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.03101731817934&lon=-118.2760550809988&zoom=15">34.031017,
+                                -118.276055</a></td>
                         <td>medium</td>
                         <td>2023-11-26</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 8</h2>
-                        <div>Crew: Crew 3</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 3</p>
-                            <p><strong>Total Distance:</strong> 0.06 km</p>
-                            <p><strong>Estimated Time:</strong> 45 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-8-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-8-0')">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 8</h2>
+            <div>Crew: Crew 3</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 3</p>
+                <p><strong>Total Distance:</strong> 0.06 km</p>
+                <p><strong>Estimated Time:</strong> 45 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-8-0" class="pothole-row" onclick="highlightPothole('pothole-8-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.97951970050137&lon=-118.27901722611745&zoom=15">33.979520, -118.279017</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.97951970050137&lon=-118.27901722611745&zoom=15">33.979520,
+                                -118.279017</a></td>
                         <td>high</td>
                         <td>2024-04-04</td>
                     </tr>
-                    
-                    <tr id="pothole-8-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-8-1')">
+
+                    <tr id="pothole-8-1" class="pothole-row" onclick="highlightPothole('pothole-8-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.979825057547515&lon=-118.27866474867064&zoom=15">33.979825, -118.278665</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.979825057547515&lon=-118.27866474867064&zoom=15">33.979825,
+                                -118.278665</a></td>
                         <td>medium</td>
                         <td>2024-04-07</td>
                     </tr>
-                    
-                    <tr id="pothole-8-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-8-2')">
+
+                    <tr id="pothole-8-2" class="pothole-row" onclick="highlightPothole('pothole-8-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.97980222423072&lon=-118.27855415678046&zoom=15">33.979802, -118.278554</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.97980222423072&lon=-118.27855415678046&zoom=15">33.979802,
+                                -118.278554</a></td>
                         <td>low</td>
                         <td>2024-05-07</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 11</h2>
-                        <div>Crew: Crew 3</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 5</p>
-                            <p><strong>Total Distance:</strong> 0.46 km</p>
-                            <p><strong>Estimated Time:</strong> 76 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-11-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-11-0')">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 11</h2>
+            <div>Crew: Crew 3</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 5</p>
+                <p><strong>Total Distance:</strong> 0.46 km</p>
+                <p><strong>Estimated Time:</strong> 76 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-11-0" class="pothole-row" onclick="highlightPothole('pothole-11-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.977895077595896&lon=-118.21251977844256&zoom=15">33.977895, -118.212520</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.977895077595896&lon=-118.21251977844256&zoom=15">33.977895,
+                                -118.212520</a></td>
                         <td>high</td>
                         <td>2023-12-22</td>
                     </tr>
-                    
-                    <tr id="pothole-11-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-11-1')">
+
+                    <tr id="pothole-11-1" class="pothole-row" onclick="highlightPothole('pothole-11-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.97792356043049&lon=-118.2123522484027&zoom=15">33.977924, -118.212352</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.97792356043049&lon=-118.2123522484027&zoom=15">33.977924,
+                                -118.212352</a></td>
                         <td>medium</td>
                         <td>2024-01-13</td>
                     </tr>
-                    
-                    <tr id="pothole-11-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-11-2')">
+
+                    <tr id="pothole-11-2" class="pothole-row" onclick="highlightPothole('pothole-11-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.97761171276617&lon=-118.21165489237356&zoom=15">33.977612, -118.211655</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.97761171276617&lon=-118.21165489237356&zoom=15">33.977612,
+                                -118.211655</a></td>
                         <td>medium</td>
                         <td>2024-01-23</td>
                     </tr>
-                    
-                    <tr id="pothole-11-3" class="pothole-row" 
-                        onclick="highlightPothole('pothole-11-3')">
+
+                    <tr id="pothole-11-3" class="pothole-row" onclick="highlightPothole('pothole-11-3')">
                         <td class="order-col">4</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.97794061516939&lon=-118.2106160209372&zoom=15">33.977941, -118.210616</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.97794061516939&lon=-118.2106160209372&zoom=15">33.977941,
+                                -118.210616</a></td>
                         <td>medium</td>
                         <td>2023-12-18</td>
                     </tr>
-                    
-                    <tr id="pothole-11-4" class="pothole-row" 
-                        onclick="highlightPothole('pothole-11-4')">
+
+                    <tr id="pothole-11-4" class="pothole-row" onclick="highlightPothole('pothole-11-4')">
                         <td class="order-col">5</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.97890449735596&lon=-118.21327289976922&zoom=15">33.978904, -118.213273</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.97890449735596&lon=-118.21327289976922&zoom=15">33.978904,
+                                -118.213273</a></td>
                         <td>medium</td>
                         <td>2024-01-05</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 14</h2>
-                        <div>Crew: Crew 3</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 7</p>
-                            <p><strong>Total Distance:</strong> 0.99 km</p>
-                            <p><strong>Estimated Time:</strong> 107 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-14-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-14-0')">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 14</h2>
+            <div>Crew: Crew 3</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 7</p>
+                <p><strong>Total Distance:</strong> 0.99 km</p>
+                <p><strong>Estimated Time:</strong> 107 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-14-0" class="pothole-row" onclick="highlightPothole('pothole-14-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.03017631775986&lon=-118.27025119054724&zoom=15">34.030176, -118.270251</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.03017631775986&lon=-118.27025119054724&zoom=15">34.030176,
+                                -118.270251</a></td>
                         <td>medium</td>
                         <td>2023-11-04</td>
                     </tr>
-                    
-                    <tr id="pothole-14-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-14-1')">
+
+                    <tr id="pothole-14-1" class="pothole-row" onclick="highlightPothole('pothole-14-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.02904830660958&lon=-118.27101522693022&zoom=15">34.029048, -118.271015</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.02904830660958&lon=-118.27101522693022&zoom=15">34.029048,
+                                -118.271015</a></td>
                         <td>low</td>
                         <td>2023-12-10</td>
                     </tr>
-                    
-                    <tr id="pothole-14-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-14-2')">
+
+                    <tr id="pothole-14-2" class="pothole-row" onclick="highlightPothole('pothole-14-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.029438359751545&lon=-118.27288385665284&zoom=15">34.029438, -118.272884</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.029438359751545&lon=-118.27288385665284&zoom=15">34.029438,
+                                -118.272884</a></td>
                         <td>low</td>
                         <td>2023-11-07</td>
                     </tr>
-                    
-                    <tr id="pothole-14-3" class="pothole-row" 
-                        onclick="highlightPothole('pothole-14-3')">
+
+                    <tr id="pothole-14-3" class="pothole-row" onclick="highlightPothole('pothole-14-3')">
                         <td class="order-col">4</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.02946484820023&lon=-118.2729619696212&zoom=15">34.029465, -118.272962</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.02946484820023&lon=-118.2729619696212&zoom=15">34.029465,
+                                -118.272962</a></td>
                         <td>low</td>
                         <td>2023-10-30</td>
                     </tr>
-                    
-                    <tr id="pothole-14-4" class="pothole-row" 
-                        onclick="highlightPothole('pothole-14-4')">
+
+                    <tr id="pothole-14-4" class="pothole-row" onclick="highlightPothole('pothole-14-4')">
                         <td class="order-col">5</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.03155625077272&lon=-118.26975957526668&zoom=15">34.031556, -118.269760</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.03155625077272&lon=-118.26975957526668&zoom=15">34.031556,
+                                -118.269760</a></td>
                         <td>low</td>
                         <td>2023-11-20</td>
                     </tr>
-                    
-                    <tr id="pothole-14-5" class="pothole-row" 
-                        onclick="highlightPothole('pothole-14-5')">
+
+                    <tr id="pothole-14-5" class="pothole-row" onclick="highlightPothole('pothole-14-5')">
                         <td class="order-col">6</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.032814846183456&lon=-118.26872789578348&zoom=15">34.032815, -118.268728</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.032814846183456&lon=-118.26872789578348&zoom=15">34.032815,
+                                -118.268728</a></td>
                         <td>medium</td>
                         <td>2023-12-16</td>
                     </tr>
-                    
-                    <tr id="pothole-14-6" class="pothole-row" 
-                        onclick="highlightPothole('pothole-14-6')">
+
+                    <tr id="pothole-14-6" class="pothole-row" onclick="highlightPothole('pothole-14-6')">
                         <td class="order-col">7</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.03307083350022&lon=-118.26749541406188&zoom=15">34.033071, -118.267495</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.03307083350022&lon=-118.26749541406188&zoom=15">34.033071,
+                                -118.267495</a></td>
                         <td>low</td>
                         <td>2023-11-09</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 17</h2>
-                        <div>Crew: Crew 3</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 3</p>
-                            <p><strong>Total Distance:</strong> 0.17 km</p>
-                            <p><strong>Estimated Time:</strong> 45 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-17-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-17-0')">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 17</h2>
+            <div>Crew: Crew 3</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 3</p>
+                <p><strong>Total Distance:</strong> 0.17 km</p>
+                <p><strong>Estimated Time:</strong> 45 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-17-0" class="pothole-row" onclick="highlightPothole('pothole-17-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98117807279054&lon=-118.2249480241013&zoom=15">33.981178, -118.224948</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98117807279054&lon=-118.2249480241013&zoom=15">33.981178,
+                                -118.224948</a></td>
                         <td>medium</td>
                         <td>2024-01-08</td>
                     </tr>
-                    
-                    <tr id="pothole-17-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-17-1')">
+
+                    <tr id="pothole-17-1" class="pothole-row" onclick="highlightPothole('pothole-17-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98090933127529&lon=-118.2250605218763&zoom=15">33.980909, -118.225061</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98090933127529&lon=-118.2250605218763&zoom=15">33.980909,
+                                -118.225061</a></td>
                         <td>medium</td>
                         <td>2024-01-16</td>
                     </tr>
-                    
-                    <tr id="pothole-17-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-17-2')">
+
+                    <tr id="pothole-17-2" class="pothole-row" onclick="highlightPothole('pothole-17-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=33.98009209189595&lon=-118.22395237227722&zoom=15">33.980092, -118.223952</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=33.98009209189595&lon=-118.22395237227722&zoom=15">33.980092,
+                                -118.223952</a></td>
                         <td>high</td>
                         <td>2024-01-02</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="route-card">
-                    <div class="route-header">
-                        <h2>Route 20</h2>
-                        <div>Crew: Crew 3</div>
-                    </div>
-                    
-                    <div class="route-stats">
-                        <div class="stat-box">
-                            <h3>Route Summary</h3>
-                            <p><strong>Potholes:</strong> 3</p>
-                            <p><strong>Total Distance:</strong> 0.24 km</p>
-                            <p><strong>Estimated Time:</strong> 45 minutes</p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3>Repair Details</h3>
-                            <p><strong>Travel Speed:</strong> 30 km/h</p>
-                            <p><strong>Repair Time:</strong> 15 min/pothole</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pothole-list">
-                        <h3>Repair Sequence</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="order-col">#</th>
-                                    <th>Location</th>
-                                    <th>Severity</th>
-                                    <th>Report Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                
-                    <tr id="pothole-20-0" class="pothole-row" 
-                        onclick="highlightPothole('pothole-20-0')">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="route-card">
+        <div class="route-header">
+            <h2>Route 20</h2>
+            <div>Crew: Crew 3</div>
+        </div>
+
+        <div class="route-stats">
+            <div class="stat-box">
+                <h3>Route Summary</h3>
+                <p><strong>Potholes:</strong> 3</p>
+                <p><strong>Total Distance:</strong> 0.24 km</p>
+                <p><strong>Estimated Time:</strong> 45 minutes</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>Repair Details</h3>
+                <p><strong>Travel Speed:</strong> 30 km/h</p>
+                <p><strong>Repair Time:</strong> 15 min/pothole</p>
+            </div>
+        </div>
+
+        <div class="pothole-list">
+            <h3>Repair Sequence</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="order-col">#</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Report Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr id="pothole-20-0" class="pothole-row" onclick="highlightPothole('pothole-20-0')">
                         <td class="order-col">1</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.004594683362&lon=-118.17312409288849&zoom=15">34.004595, -118.173124</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.004594683362&lon=-118.17312409288849&zoom=15">34.004595,
+                                -118.173124</a></td>
                         <td>low</td>
                         <td>2024-03-14</td>
                     </tr>
-                    
-                    <tr id="pothole-20-1" class="pothole-row" 
-                        onclick="highlightPothole('pothole-20-1')">
+
+                    <tr id="pothole-20-1" class="pothole-row" onclick="highlightPothole('pothole-20-1')">
                         <td class="order-col">2</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.00374443211807&lon=-118.17377691466176&zoom=15">34.003744, -118.173777</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.00374443211807&lon=-118.17377691466176&zoom=15">34.003744,
+                                -118.173777</a></td>
                         <td>low</td>
                         <td>2024-03-19</td>
                     </tr>
-                    
-                    <tr id="pothole-20-2" class="pothole-row" 
-                        onclick="highlightPothole('pothole-20-2')">
+
+                    <tr id="pothole-20-2" class="pothole-row" onclick="highlightPothole('pothole-20-2')">
                         <td class="order-col">3</td>
-                        <td><a href="pothole_repair_routes.html?lat=34.00435474114391&lon=-118.17489186388808&zoom=15">34.004355, -118.174892</a></td>
+                        <td><a href="pothole_repair_routes.html?lat=34.00435474114391&lon=-118.17489186388808&zoom=15">34.004355,
+                                -118.174892</a></td>
                         <td>low</td>
                         <td>2024-03-03</td>
                     </tr>
-                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-            <div class="footer">
-                <p>Total Potholes: 135 | Total Routes: 22</p>
-                <p>Generated by Pothole Repair Optimization System</p>
-            </div>
-        </body>
-        </html>
-        
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Total Potholes: 135 | Total Routes: 22</p>
+        <p>Generated by Pothole Repair Optimization System</p>
+    </div>
+</body>
+
+</html>
