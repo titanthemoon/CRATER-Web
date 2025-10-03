@@ -1,14 +1,66 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merge - CRATER</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#1e293b',
+                        accent: '#f97316',
+                        dark: '#0f172a'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel = "stylesheet" href = "../style.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            overflow-x: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
         iframe {
             width: 50vw;
-            height: 100vh;
+            height: 100%;
+            border: none;
+        }
+        
+        .iframe-container {
+            display: flex;
+            flex: 1;
+            height: calc(100vh - 4rem);
         }
     </style>
 </head>
 <body>
-    <div style="width: 100%; height: 100%; display: flex; margin: 0; padding: 0; position: absolute; top: 0; left: 0;">
+    <!-- Navigation with fixed positioning -->
+    <div id="navbar-placeholder" style="position: fixed; top: 0; left: 0; right: 0; z-index: 9999;"></div>
+
+    <div class="iframe-container" style="margin-top: 4rem;">
         <iframe id="pageLeft" src="pothole_repair_routes.html"></iframe>
         <iframe id="pageRight" src="work_orders.html"></iframe>
     </div>
@@ -61,5 +113,12 @@
                 document.getElementById('pageRight').src = link.href;
             });
         });
+
+        fetch("../navbar.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("navbar-placeholder").innerHTML = data;
+            });
     </script>
 </body>
+</html>

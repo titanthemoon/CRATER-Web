@@ -24,166 +24,12 @@
             }
         }
     </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: #e2e8f0;
-            overflow-x: hidden;
-        }
-
-        .section {
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .image-container {
-            scroll-behavior: smooth;
-            scroll-snap-type: y mandatory;
-            -ms-overflow-style: none;
-            /* IE and Edge */
-            scrollbar-width: none;
-            /* Firefox */
-        }
-
-        .image-container::-webkit-scrollbar {
-            display: none;
-            /* Chrome, Safari, Opera */
-        }
-
-        .image-slide {
-            scroll-snap-align: start;
-        }
-
-        .progress-bar {
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        .nav-link {
-            position: relative;
-            padding-bottom: 4px;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #3b82f6;
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .gradient-text {
-            background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* FIXED MOBILE STYLES */
-        @media (max-width: 768px) {
-            .section {
-                flex-direction: column !important;
-                height: auto !important;
-                min-height: 100vh;
-            }
-
-            .text-container {
-                width: 100% !important;
-                height: auto !important;
-                min-height: 50vh;
-            }
-
-            .image-container {
-                width: 100% !important;
-                height: 50vh !important;
-                /* Fixed height for mobile */
-            }
-
-            .image-slide {
-                height: 100% !important;
-                /* Ensure slides fill container */
-            }
-
-            nav .container {
-                padding-top: 0.5rem;
-                padding-bottom: 0.5rem;
-                flex-direction: row;
-                justify-content: space-between;
-            }
-
-            nav .container .text-2xl {
-                font-size: 1.25rem;
-            }
-
-            nav .container>.md\\:flex {
-                display: none !important;
-            }
-
-            /* Mobile navigation menu */
-            .mobile-nav {
-                display: flex;
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                background: rgba(15, 23, 42, 0.95);
-                backdrop-filter: blur(10px);
-                z-index: 100;
-                padding: 10px;
-                justify-content: space-around;
-                border-top: 1px solid rgba(59, 130, 246, 0.3);
-            }
-
-            .mobile-nav-btn {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                color: #94a3b8;
-                font-size: 0.75rem;
-                transition: all 0.3s ease;
-            }
-
-            .mobile-nav-btn i {
-                font-size: 1.25rem;
-                margin-bottom: 4px;
-            }
-
-            .mobile-nav-btn.active {
-                color: #3b82f6;
-            }
-        }
-    </style>
+    <link rel = "stylesheet" href = "../style.css">
 </head>
 
 <body class="bg-dark">
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-dark/90 backdrop-blur-sm shadow-lg py-4">
-        <div class="container mx-auto px-4 flex justify-between items-center">
-            <div class="text-2xl font-bold text-white"><span class="gradient-text">C.R.A.T.E.R</span></div>
-            <div class="hidden md:flex space-x-8">
-                <a href="#section1" class="nav-link text-gray-300 hover:text-white font-medium">AI Detection</a>
-                <a href="#section2" class="nav-link text-gray-300 hover:text-white font-medium">Data Analysis</a>
-                <a href="#section3" class="nav-link text-gray-300 hover:text-white font-medium">Repairs</a>
-                <a href="#section4" class="nav-link text-gray-300 hover:text-white font-medium">Implementation</a>
-            </div>
-        </div>
-    </nav>
+    <div id="navbar-placeholder"></div>
 
     <!-- Hero Section -->
     <div class="h-screen flex flex-col justify-center items-center text-center px-4 relative overflow-hidden">
@@ -476,7 +322,8 @@
                     &copy; 2025 CRATER. All rights reserved.
                 </p>
                 <div style="margin-top:1rem; display: flex; justify-content: center;">
-                    <span class="gradient-text" id="copyPopup" style="visibility: hidden; position: absolute;">Email Copied!</span>
+                    <span class="gradient-text" id="copyPopup" style="visibility: hidden; position: absolute;">Email
+                        Copied!</span>
                 </div>
             </div>
         </div>
@@ -678,6 +525,12 @@
                 popup.style.visibility = "hidden";
             }, 2000);
         });
+
+        fetch("navbar.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("navbar-placeholder").innerHTML = data;
+            });
     </script>
 </body>
 
