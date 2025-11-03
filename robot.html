@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" class="overflow-x-hidden">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotic Implementation - C.R.A.T.E.R</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#1e293b',
+                        accent: '#f97316',
+                        dark: '#0f172a'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-dark overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 w-full bg-dark/90 backdrop-blur-sm shadow-lg py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-white"><span class="gradient-text"><a href="./">C.R.A.T.E.R</a></span>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="./#section1" class="nav-link text-gray-300 hover:text-white font-medium">AI Detection</a>
+                <a href="./#section2" class="nav-link text-gray-300 hover:text-white font-medium">Data Analysis</a>
+                <a href="./#section3" class="nav-link text-gray-300 hover:text-white font-medium">Repairs</a>
+                <a href="./#section4" class="nav-link text-gray-300 hover:text-white font-medium">Implementation</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Robot Section -->
+    <section id="robot-section" class="flex relative overflow-x-hidden">
+        <div class="absolute top-0 left-0 right-0 h-1.5 bg-gray-700 z-40 hidden">
+            <div class="progress-bar h-full bg-gradient-to-r from-emerald-500 to-teal-500" id="progress-robot"></div>
+        </div>
+
+        <!-- Video container (fixed) -->
+        <div class="w-1/2 sticky top-0 h-screen flex items-center justify-center p-0 bg-gradient-to-r from-dark to-slate-900 overflow-hidden">
+            <div class="w-full h-full">
+                <div class="w-full h-full relative overflow-hidden bg-gray-800 max-w-full">
+                    <!-- 3D animation GIF -->
+                    <img src="full-anim.gif" alt="3D Robot Animation" class="w-full h-full object-cover" loading="lazy">
+                </div>
+            </div>
+        </div>
+
+        <!-- Text container (scrolling) -->
+        <div class="w-1/2" id="robot-text-container">
+            <div class="h-full flex items-center justify-center p-12 bg-gradient-to-l from-dark to-slate-900">
+                <div class="max-w-md">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center mr-4">
+                            <span class="text-white font-bold">R</span>
+                        </div>
+                        <h2 class="text-3xl font-bold text-white">Robotic Design</h2>
+                    </div>
+                    <p class="text-gray-300 mb-8 text-lg leading-relaxed">
+                        Our robotic system is designed for autonomous pothole detection and repair, featuring precise mechanical component and advanced data analytics. The robot operates 
+                        seamlessly on public roads while maintaining high efficiency and safety standards.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="bg-emerald-900/30 p-4 rounded-xl border border-emerald-700/30">
+                            <div class="w-10 h-10 rounded-full bg-emerald-700/50 flex items-center justify-center mb-3">
+                                <i class="fas fa-microchip text-emerald-300"></i>
+                            </div>
+                            <h3 class="font-bold text-white text-lg mb-1">AI Detection</h3>
+                            <p class="text-emerald-300 text-sm">Advanced pothole detection system</p>
+                        </div>
+                        <div class="bg-emerald-900/30 p-4 rounded-xl border border-emerald-700/30">
+                            <div class="w-10 h-10 rounded-full bg-emerald-700/50 flex items-center justify-center mb-3">
+                                <i class="fas fa-screwdriver-wrench text-emerald-300"></i>
+                            </div>
+                            <h3 class="font-bold text-white text-lg mb-1">Repair System</h3>
+                            <p class="text-emerald-300 text-sm">Automated cold-mix asphalt dispensing</p>
+                        </div>
+                        <div class="bg-emerald-900/30 p-4 rounded-xl border border-emerald-700/30">
+                            <div class="w-10 h-10 rounded-full bg-emerald-700/50 flex items-center justify-center mb-3">
+                                <i class="fas fa-bolt text-emerald-300"></i>
+                            </div>
+                            <h3 class="font-bold text-white text-lg mb-1">Cost Efficiency</h3>
+                            <p class="text-emerald-300 text-sm">Cost efficient operation with no manual labor requirement</p>
+                        </div>
+                        <div class="bg-emerald-900/30 p-4 rounded-xl border border-emerald-700/30">
+                            <div class="w-10 h-10 rounded-full bg-emerald-700/50 flex items-center justify-center mb-3">
+                                <i class="fas fa-shield text-emerald-300"></i>
+                            </div>
+                            <h3 class="font-bold text-white text-lg mb-1">Smart Fixing</h3>
+                            <p class="text-emerald-300 text-sm">Algorithmic volume estimation and safety precautions</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-emerald-900/30 p-4 rounded-xl border-l-4 border-emerald-500 mb-8">
+                        <p class="text-emerald-200">
+                            <i class="fas fa-info-circle mr-2"></i> The adaptable design allows the repair vehicle to attach to any pickup truck
+                        </p>
+                    </div>
+
+                    <a href="./#section4"
+                        class="block w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white py-3.5 rounded-xl font-medium transition-all duration-300 transform hover:scale-[1.02] text-center">
+                        <i class="fas fa-arrow-left mr-2"></i> Back to Implementation
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-16 border-t border-slate-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <h3 class="text-3xl font-bold mb-6"><span class="gradient-text">C.R.A.T.E.R</span></h3>
+                <p class="text-gray-400 max-w-2xl mx-auto mb-10 text-lg">
+                    Paving the path towards a better future.
+                </p>
+                <div class="relative flex justify-center items-center space-x-6 mb-10">
+                    <a href="https://github.com/titanthemoon/CRATER-Web"
+                        class="text-gray-400 hover:text-white transition duration-300 flex items-center justify-center"
+                        target="_blank" rel="noopener">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                    <a onclick="navigator.clipboard.writeText('william1324230@gmail.com')" id="emailButton"
+                        class="text-gray-400 hover:text-white transition duration-300 flex items-center justify-center"
+                        target="_blank" rel="noopener">
+                        <i class="fa-solid fa-envelope text-2xl"></i>
+                    </a>
+                </div>
+                <p class="text-gray-600 text-sm">
+                    &copy; 2025 CRATER. All rights reserved.
+                </p>
+                <div style="margin-top:1rem; display: flex; justify-content: center;">
+                    <span class="gradient-text" id="copyPopup" style="visibility: hidden; position: absolute;">Email
+                        Copied!</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav md:hidden fixed bottom-0 left-0 right-0 z-50">
+        <a href="./" class="mobile-nav-btn">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="./#section1" class="mobile-nav-btn">
+            <i class="fas fa-search"></i>
+            <span>Detection</span>
+        </a>
+        <a href="./#section3" class="mobile-nav-btn">
+            <i class="fas fa-tools"></i>
+            <span>Repairs</span>
+        </a>
+        <a href="./#section4" class="mobile-nav-btn">
+            <i class="fas fa-robot"></i>
+            <span>Robot</span>
+        </a>
+    </div>
+
+    <script>
+        // Progress bar for robot section
+        function setupRobotProgress() {
+            const container = document.getElementById('robot-text-container');
+            const progress = document.getElementById('progress-robot');
+
+            container.addEventListener('scroll', () => {
+                const scrollHeight = container.scrollHeight - container.clientHeight;
+                const scrolled = container.scrollTop;
+                const progressPercent = (scrolled / scrollHeight) * 100;
+                progress.style.width = `${progressPercent}%`;
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^=\"#\"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Highlight active mobile nav item
+                if (window.innerWidth < 768) {
+                    document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            setupRobotProgress();
+
+            // Set default active mobile nav item
+            document.querySelector('.mobile-nav-btn').classList.add('active');
+        });
+
+        const button = document.getElementById("emailButton");
+        const popup = document.getElementById("copyPopup");
+
+        button.addEventListener("click", () => {
+
+            // Show popup
+            popup.style.visibility = "visible";
+
+            // Hide popup after 2 seconds
+            setTimeout(() => {
+                popup.style.visibility = "hidden";
+            }, 2000);
+        });
+    </script>
+</body>
+
+</html>
