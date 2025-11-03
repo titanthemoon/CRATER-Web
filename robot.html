@@ -43,13 +43,13 @@
     </nav>
 
     <!-- Robot Section -->
-    <section id="robot-section" class="flex relative overflow-x-hidden">
+    <section id="robot-section" class="flex flex-col md:flex-row relative overflow-x-hidden">
         <div class="absolute top-0 left-0 right-0 h-1.5 bg-gray-700 z-40 hidden">
             <div class="progress-bar h-full bg-gradient-to-r from-emerald-500 to-teal-500" id="progress-robot"></div>
         </div>
 
         <!-- Video container (fixed) -->
-        <div class="w-1/2 sticky top-0 h-screen flex items-center justify-center p-0 bg-gradient-to-r from-dark to-slate-900 overflow-hidden">
+        <div class="w-full md:w-1/2 md:sticky md:top-0 h-auto md:h-screen flex items-center justify-center p-0 bg-gradient-to-r from-dark to-slate-900 overflow-hidden">
             <div class="w-full h-full">
                 <div class="w-full h-full relative overflow-hidden bg-gray-800 max-w-full">
                     <!-- 3D animation GIF -->
@@ -59,8 +59,8 @@
         </div>
 
         <!-- Text container (scrolling) -->
-        <div class="w-1/2" id="robot-text-container">
-            <div class="h-full flex items-center justify-center p-12 bg-gradient-to-l from-dark to-slate-900">
+        <div class="w-full md:w-1/2" id="robot-text-container">
+            <div class="md:h-full md:flex md:items-center md:justify-center p-6 md:p-12 bg-gradient-to-l from-dark to-slate-900">
                 <div class="max-w-md">
                     <div class="flex items-center mb-6">
                         <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center mr-4">
@@ -151,7 +151,7 @@
     </footer>
 
     <!-- Mobile Navigation -->
-    <div class="mobile-nav md:hidden fixed bottom-0 left-0 right-0 z-50">
+    <!-- <div class="mobile-nav md:hidden fixed bottom-0 left-0 right-0 z-50">
         <a href="./" class="mobile-nav-btn">
             <i class="fas fa-home"></i>
             <span>Home</span>
@@ -168,7 +168,7 @@
             <i class="fas fa-robot"></i>
             <span>Robot</span>
         </a>
-    </div>
+    </div> -->
 
     <script>
         // Progress bar for robot section
